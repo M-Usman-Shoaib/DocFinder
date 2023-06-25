@@ -22,7 +22,7 @@ class registerPatient(Resource):
             'email': email,
             'phone_no': phone_no,
             'password': password,
-            'status': "pending"
+            'status': "approved"
         }
         patients(**registration_data).save()
 
@@ -56,8 +56,52 @@ class registerDoctor(Resource):
             'password': password,
             'status': "pending"
         }
+
         doctors(**registration_data).save()
 
         # Return a success message
         return {'message': 'Registration pending'}, 200
+
+
+class DoctorLogin(Resource):
+    def post(self):
+        try:
+            data = request.get_json()
+            email = data.get('email')
+            password = data.get('password')
+
+            login_check = doctors.objects(email=email, password=password).first()
+            if login_check:
+                approval_check = doctors.objects(email=email, password=password, status='approved').first()
+                if approval_check:
+                    return {'message': 'Login Successful'}, 200
+                else:
+                    return {'message': 'Your Registration Request is PENDING at the moment.'}, 403
+            else:
+                return {'message': 'No account found with these credentials.'}, 404
+        except Exception as e:
+            return {'message': f'error occurred due to {str(e)}'}, 404
+
+
+class PatientLogin(Resource):
+    def post(self):
+        try:
+            data = request.get_json()
+            email = data.get('email')
+            password = data.get('password')
+
+            login_check = patients.objects(email=email, password=password).first()
+            if login_check:
+                approval_check = patients.objects(email=email, password=password, status='approved').first()
+                if approval_check:
+                    return {'message': 'Login Successful'}, 200
+                else:
+                    return {'message': 'Your Registration Request is PENDING at the moment.'}, 403
+            else:
+                return {'message': 'No account found with these credentials.'}, 404
+        except Exception as e:
+            return {'message': f'error occurred due to {str(e)}'}, 404
+
+
+
 

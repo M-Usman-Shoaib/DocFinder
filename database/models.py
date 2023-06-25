@@ -10,6 +10,7 @@ class patients(db.Document):
     password = db.StringField(required=True)
     status = db.StringField(required=True)
 
+
 class doctors(db.Document):
     name = db.StringField(required=True)
     gender = db.StringField(required=True)

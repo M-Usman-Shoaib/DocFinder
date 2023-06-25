@@ -15,11 +15,8 @@ dbinitialization.initialize_db(app)
 # flask API instance creation
 api = Api(app)
 
-# initiaize routes
+# initialize routes
 routes.initialize_routes(api)
-
-
-
 
 
 if __name__ == '__main__':
