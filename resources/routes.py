@@ -15,4 +15,6 @@ def initialize_routes(api):
     api.add_resource(AppointmentRequest, '/api/patients/appointment_request/<doctor_id>')
     api.add_resource(WithdrawalOfRequest, '/api/patients/appointment_request_withdrawal/<appointment_id>')
     api.add_resource(PatientAppointmentStatus, '/api/patients/appointment_status/<patient_id>')
+    api.add_resource(DoctorRatings, '/api/patients/doctor_ratings/<doctor_id>')
+
 

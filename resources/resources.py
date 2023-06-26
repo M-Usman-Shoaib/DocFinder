@@ -312,3 +312,29 @@ class PatientAppointmentStatus(Resource):
 
 
 
+class DoctorRatings(Resource):
+    def post(self, doctor_id):
+        try:
+            data = request.get_json()
+            ratings = data.get("ratings")
+            patient_id = data.get("patient_id")
+
+            patient = patients.objects(id=patient_id).first()
+            doctor = doctors.objects(id=doctor_id).first()
+
+            if patient and doctor:
+                if doctor.examined_patient_id == patient_id:
+                    if patient.has_given_rating:
+                        return {"message": "You have already given a rating to this doctor."}, 400
+                    else:
+                        doctor.ratings = ratings
+                        patient.has_given_rating = True
+                        doctor.save()
+                        patient.save()
+                        return {"message": "Rating submitted successfully."}, 200
+                else:
+                    return {"message": "You are not authorized to give a rating to this doctor."}, 403
+            else:
+                return {"message": "Invalid patient or doctor ID."}, 404
+        except Exception as e:
+            return {"message": f"Error occurred: {str(e)}"}, 500
