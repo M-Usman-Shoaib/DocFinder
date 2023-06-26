@@ -3,7 +3,7 @@ from flask_restful import Resource
 from database.models import patients, doctors, appointments
 
 
-class registerPatient(Resource):
+class RegisterPatient(Resource):
     def post(self):
         # Get the data from the request
         data = request.get_json()
@@ -30,7 +30,7 @@ class registerPatient(Resource):
         return {'message': 'Registration pending'}, 200
 
 
-class registerDoctor(Resource):
+class RegisterDoctor(Resource):
     def post(self):
         # Get the data from the request
         data = request.get_json()
@@ -213,7 +213,6 @@ class DeleteDoctor(Resource):
             return {"message": f"Error occurred: {str(e)}"}, 500
 
 
-
 class DoctorSearchByPatient(Resource):
 
     def get(self):
@@ -309,7 +308,6 @@ class PatientAppointmentStatus(Resource):
                 return {'message': "No approved appointments found for the patient."}, 404
         except Exception as e:
             return {"message": f"Error occurred due to {str(e)}"}, 500
-
 
 
 class DoctorRatings(Resource):
