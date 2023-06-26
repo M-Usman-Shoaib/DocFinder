@@ -261,9 +261,10 @@ class AppointmentRequest(Resource):
             appointment_date = data.get("appointment_date")
             patient = patients.objects.get(id=patient_id)
             doctor = doctors.objects.get(id=doctor_id)
-            status = "pending"
+            status = "approved"
             appointment = appointments(patient_id=str(patient_id), doctor_id=str(doctor_id),
-                                       appointment_date=appointment_date, status=status)
+                                       appointment_date=appointment_date,
+                                       status=status)
             appointment.save()
             return {"message": f"Appointment request sent successfully from {patient.name} to {doctor.name}."}, 200
         except Exception as e:
@@ -278,3 +279,36 @@ class WithdrawalOfRequest(Resource):
             return {"message": "Appointment request withdrawn successfully."}, 200
         except Exception as e:
             return {"message": f"Error occurred due to {str(e)}"}, 500
+
+
+class PatientAppointmentStatus(Resource):
+
+    def get(self, patient_id):
+
+        try:
+            results = appointments.objects(patient_id=patient_id, status='approved')
+            if results:
+                appointment_status = []
+                for appointment in results:
+                    appointment_date = appointment.appointment_date.strftime(
+                        "%Y-%m-%d") if appointment.appointment_date else None
+                    appointment_time = appointment.appointment_time.strftime(
+                        "%H:%M:%S") if appointment.appointment_time else None
+                    doctor = doctors.objects(
+                        id=appointment.doctor_id).first()
+                    doctor_name = doctor.name if doctor else None
+                    appointment_status.append({
+                        "doctor_name": doctor_name,
+                        "appointment_date": appointment_date,
+                        "appointment_time": appointment_time,
+                        "status": appointment.status
+                    })
+                return {'message': "Your following request has been approved.",
+                        'appointment_status': appointment_status}, 200
+            else:
+                return {'message': "No approved appointments found for the patient."}, 404
+        except Exception as e:
+            return {"message": f"Error occurred due to {str(e)}"}, 500
+
+
+
