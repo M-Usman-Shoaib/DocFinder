@@ -3,7 +3,7 @@ from flask_restful import Resource
 from database.models import patients, doctors
 
 
-class RegisterPatient(Resource):
+class registerPatient(Resource):
     def post(self):
         # Get the data from the request
         data = request.get_json()
@@ -29,8 +29,7 @@ class RegisterPatient(Resource):
         # Return a success message
         return {'message': 'Registration pending'}, 200
 
-
-class RegisterDoctor(Resource):
+class registerDoctor(Resource):
     def post(self):
         # Get the data from the request
         data = request.get_json()
@@ -214,5 +213,34 @@ class DeleteDoctor(Resource):
 
 
 
+class DoctorSearchByPatient(Resource):
 
+    def get(self):
+
+        data = request.get_json()
+        speciality = data.get("speciality")
+        ratings = data.get("ratings")
+        city = data.get("city")
+
+        results = self.search_doctors(speciality, ratings, city)
+        return results
+
+    def search_doctors(self, speciality, ratings, city):
+
+        query = {}
+        if speciality:
+            query["speciality"] = speciality
+        if ratings:
+            query["ratings"] = ratings
+        if city:
+            query["city"] = city
+
+        if query:
+            filtered_doctors = doctors.objects(**query)
+            if filtered_doctors:
+                return filtered_doctors.to_json()
+            else:
+                return {'message': "No such results found."}
+        else:
+            return {'message': "Please enter one of the fields to search"}
 
