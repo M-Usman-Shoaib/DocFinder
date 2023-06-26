@@ -225,30 +225,37 @@ class DoctorSearchByPatient(Resource):
 
     def get(self):
 
-        data = request.get_json()
-        speciality = data.get("speciality")
-        ratings = data.get("ratings")
-        city = data.get("city")
+        try:
+            data = request.get_json()
+            speciality = data.get("speciality")
+            ratings = data.get("ratings")
+            city = data.get("city")
 
-        results = self.search_doctors(speciality, ratings, city)
-        return results
+            results = self.search_doctors(speciality, ratings, city)
+            return results
+        except Exception as e:
+            return {'message: ' f'Error occurred due to {str(e)}'}
 
     def search_doctors(self, speciality, ratings, city):
 
-        query = {}
-        if speciality:
-            query["speciality"] = speciality
-        if ratings:
-            query["ratings"] = ratings
-        if city:
-            query["city"] = city
+        try:
+            query = {}
+            if speciality:
+                query["speciality"] = speciality
+            if ratings:
+                query["ratings"] = ratings
+            if city:
+                query["city"] = city
 
-        if query:
-            filtered_doctors = doctors.objects(**query)
-            if filtered_doctors:
-                return filtered_doctors.to_json()
+            if query:
+                filtered_doctors = doctors.objects(**query)
+                if filtered_doctors:
+                    return filtered_doctors.to_json()
+                else:
+                    return {'message': "No such results found."}
             else:
-                return {'message': "No such results found."}
-        else:
-            return {'message': "Please enter one of the fields to search"}
+                return {'message': "Please enter one of the fields to search"}
+        except Exception as e:
+            return {'message: ' f'Error occurred due to {str(e)}'}
+
 
