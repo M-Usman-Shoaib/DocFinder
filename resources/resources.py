@@ -29,6 +29,7 @@ class registerPatient(Resource):
         # Return a success message
         return {'message': 'Registration pending'}, 200
 
+
 class registerDoctor(Resource):
     def post(self):
         # Get the data from the request
@@ -73,8 +74,11 @@ class DoctorLogin(Resource):
             login_check = doctors.objects(email=email, password=password).first()
             if login_check:
                 approval_check = doctors.objects(email=email, password=password, status='approved').first()
+                rejection_check = doctors.objects(email=email, password=password, status='rejected').first()
                 if approval_check:
                     return {'message': 'Login Successful'}, 200
+                elif rejection_check:
+                    return {'message': 'Sorry to inform that, your registration request has been rejected.'}, 403
                 else:
                     return {'message': 'Your Registration Request is PENDING at the moment.'}, 403
             else:
@@ -93,8 +97,11 @@ class PatientLogin(Resource):
             login_check = patients.objects(email=email, password=password).first()
             if login_check:
                 approval_check = patients.objects(email=email, password=password, status='approved').first()
+                rejection_check = patients.objects(email=email, password=password, status='rejected').first()
                 if approval_check:
                     return {'message': 'Login Successful'}, 200
+                elif rejection_check:
+                    return {'message': 'Sorry to inform that, your registration request has been rejected.'}, 403
                 else:
                     return {'message': 'Your Registration Request is PENDING at the moment.'}, 403
             else:
@@ -192,6 +199,7 @@ class DeletePatient(Resource):
 
         except Exception as e:
             return {"message": f"Error occurred: {str(e)}"}, 500
+
 
 class DeleteDoctor(Resource):
     def delete(self, doctor_id):
