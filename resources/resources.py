@@ -228,7 +228,7 @@ class DoctorSearchByPatient(Resource):
         except Exception as e:
             return {'message: ' f'Error occurred due to {str(e)}'}, 500
 
-    def search_doctors(self, speciality, ratings, city):
+def search_doctors(self, speciality, ratings, city):
 
         try:
             query = {}
