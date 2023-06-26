@@ -103,5 +103,34 @@ class PatientLogin(Resource):
             return {'message': f'error occurred due to {str(e)}'}, 404
 
 
+class DoctorSearchByPatient(Resource):
 
+    def get(self):
+
+        data = request.get_json()
+        speciality = data.get("speciality")
+        ratings = data.get("ratings")
+        city = data.get("city")
+
+        results = self.search_doctors(speciality, ratings, city)
+        return results
+
+    def search_doctors(self, speciality, ratings, city):
+
+        query = {}
+        if speciality:
+            query["speciality"] = speciality
+        if ratings:
+            query["ratings"] = ratings
+        if city:
+            query["city"] = city
+
+        if query:
+            filtered_doctors = doctors.objects(**query)
+            if filtered_doctors:
+                return filtered_doctors.to_json()
+            else:
+                return {'message': "No such results found."}
+        else:
+            return {'message': "Please enter one of the fields to search"}
 
