@@ -3,7 +3,7 @@ from flask_restful import Resource
 from database.models import patients, doctors
 
 
-class registerPatient(Resource):
+class RegisterPatient(Resource):
     def post(self):
         # Get the data from the request
         data = request.get_json()
@@ -29,7 +29,8 @@ class registerPatient(Resource):
         # Return a success message
         return {'message': 'Registration pending'}, 200
 
-class registerDoctor(Resource):
+
+class RegisterDoctor(Resource):
     def post(self):
         # Get the data from the request
         data = request.get_json()
@@ -101,6 +102,116 @@ class PatientLogin(Resource):
                 return {'message': 'No account found with these credentials.'}, 404
         except Exception as e:
             return {'message': f'error occurred due to {str(e)}'}, 404
+
+
+class ApprovePatientRegistration(Resource):
+    def put(self, patient_id):
+        try:
+            if patient_id:
+                patient = patients.objects.get(id=patient_id)
+                patient.status = "approved"
+                patient.save()
+                return {"message": "Patient registration approved"}, 200
+            else:
+                return {"message": "Invalid patient ID"}, 400
+
+        except patients.DoesNotExist:
+            return {"message": "Patient not found"}, 404
+
+        except Exception as e:
+            return {'message': f'Error occurred due to {str(e)}'}, 500
+
+
+class RejectPatientRegistration(Resource):
+    def put(self, patient_id):
+        try:
+            if patient_id:
+                patient = patients.objects.get(id=patient_id)
+                patient.status = "rejected"
+                patient.save()
+                return {"message": "Patient registration rejected"}, 200
+            else:
+                return {"message": "Invalid patient ID"}, 400
+
+        except patients.DoesNotExist:
+            return {"message": "Patient not found"}, 404
+
+        except Exception as e:
+            return {'message': f'Error occurred due to {str(e)}'}, 500
+
+
+class ApproveDoctorRegistration(Resource):
+    def put(self, doctor_id):
+        try:
+            if doctor_id:
+                doctor = doctors.objects.get(id=doctor_id)
+                doctor.status = "approved"
+                doctor.save()
+                return {"message": "Doctor registration approved"}, 200
+            else:
+                return {"message": "Invalid doctor ID"}, 400
+
+        except patients.DoesNotExist:
+            return {"message": "Doctor not found"}, 404
+
+        except Exception as e:
+            return {'message': f'Error occurred due to {str(e)}'}, 500
+
+
+class RejectDoctorRegistration(Resource):
+    def put(self, doctor_id):
+        try:
+            if doctor_id:
+                doctor = doctors.objects.get(id=doctor_id)
+                doctor.status = "rejected"
+                doctor.save()
+                return {"message": "Doctor registration rejected"}, 200
+            else:
+                return {"message": "Invalid doctor ID"}, 400
+
+        except patients.DoesNotExist:
+            return {"message": "Doctor not found"}, 404
+
+        except Exception as e:
+            return {'message': f'Error occurred due to {str(e)}'}, 500
+
+
+class DeletePatient(Resource):
+    def delete(self, patient_id):
+        try:
+
+            # Check if the patient record exists
+            patient = patients.objects.filter(id=patient_id).first()
+            if not patient:
+                return {"message": "Patient record not found"}, 404
+
+            # Delete the patient record
+            patient.delete()
+
+            return {"message": "Patient record deleted successfully"}, 200
+
+
+        except Exception as e:
+            return {"message": f"Error occurred: {str(e)}"}, 500
+
+class DeleteDoctor(Resource):
+    def delete(self, doctor_id):
+        try:
+
+            # Check if the patient record exists
+            doctor = doctors.objects.filter(id=doctor_id).first()
+            if not doctor:
+                return {"message": "Doctor record not found"}, 404
+
+            # Delete the patient record
+            doctor.delete()
+
+            return {"message": "Doctor record deleted successfully"}, 200
+
+
+        except Exception as e:
+            return {"message": f"Error occurred: {str(e)}"}, 500
+
 
 
 
