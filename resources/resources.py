@@ -1,6 +1,6 @@
 from flask import request
 from flask_restful import Resource
-from database.models import patients, doctors
+from database.models import patients, doctors, appointments
 
 
 class registerPatient(Resource):
@@ -123,7 +123,6 @@ class ApprovePatientRegistration(Resource):
 
         except patients.DoesNotExist:
             return {"message": "Patient not found"}, 404
-
         except Exception as e:
             return {'message': f'Error occurred due to {str(e)}'}, 500
 
@@ -141,7 +140,6 @@ class RejectPatientRegistration(Resource):
 
         except patients.DoesNotExist:
             return {"message": "Patient not found"}, 404
-
         except Exception as e:
             return {'message': f'Error occurred due to {str(e)}'}, 500
 
@@ -159,7 +157,6 @@ class ApproveDoctorRegistration(Resource):
 
         except patients.DoesNotExist:
             return {"message": "Doctor not found"}, 404
-
         except Exception as e:
             return {'message': f'Error occurred due to {str(e)}'}, 500
 
@@ -195,8 +192,6 @@ class DeletePatient(Resource):
             patient.delete()
 
             return {"message": "Patient record deleted successfully"}, 200
-
-
         except Exception as e:
             return {"message": f"Error occurred: {str(e)}"}, 500
 
@@ -214,8 +209,6 @@ class DeleteDoctor(Resource):
             doctor.delete()
 
             return {"message": "Doctor record deleted successfully"}, 200
-
-
         except Exception as e:
             return {"message": f"Error occurred: {str(e)}"}, 500
 
@@ -234,7 +227,7 @@ class DoctorSearchByPatient(Resource):
             results = self.search_doctors(speciality, ratings, city)
             return results
         except Exception as e:
-            return {'message: ' f'Error occurred due to {str(e)}'}
+            return {'message: ' f'Error occurred due to {str(e)}'}, 500
 
     def search_doctors(self, speciality, ratings, city):
 
@@ -256,6 +249,32 @@ class DoctorSearchByPatient(Resource):
             else:
                 return {'message': "Please enter one of the fields to search"}
         except Exception as e:
-            return {'message: ' f'Error occurred due to {str(e)}'}
+            return {'message: ' f'Error occurred due to {str(e)}'}, 500
 
 
+class AppointmentRequest(Resource):
+    def post(self, doctor_id):
+
+        try:
+            data = request.get_json()
+            patient_id = data.get("_id")
+            appointment_date = data.get("appointment_date")
+            patient = patients.objects.get(id=patient_id)
+            doctor = doctors.objects.get(id=doctor_id)
+            status = "pending"
+            appointment = appointments(patient_id=str(patient_id), doctor_id=str(doctor_id),
+                                       appointment_date=appointment_date, status=status)
+            appointment.save()
+            return {"message": f"Appointment request sent successfully from {patient.name} to {doctor.name}."}, 200
+        except Exception as e:
+            return {"message": f"Error occurred due to {str(e)}"}, 500
+
+
+class WithdrawalOfRequest(Resource):
+    def delete(self, appointment_id):
+        try:
+            appointment = appointments.objects.get(id=appointment_id)
+            appointment.delete()
+            return {"message": "Appointment request withdrawn successfully."}, 200
+        except Exception as e:
+            return {"message": f"Error occurred due to {str(e)}"}, 500

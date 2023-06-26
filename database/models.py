@@ -30,6 +30,14 @@ class doctors(db.Document):
     status = db.StringField(required=True)
 
 
+class appointments(db.Document):
+    doctor_id = db.StringField(required=True)
+    patient_id = db.StringField(required=True)
+    # selected date by the patient
+    appointment_date = db.DateTimeField(required=True)
+    # given time by the doctor
+    appointment_time = db.DateTimeField()
+    status = db.StringField()
 
 
 
