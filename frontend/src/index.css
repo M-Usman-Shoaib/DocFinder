@@ -1,0 +1,21 @@
+body {
+  background-image: url('path/to/your/image.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+h1{
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+}
+
+h2{
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+}
