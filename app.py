@@ -5,6 +5,7 @@ from resources import routes
 from flask_session import Session
 
 app = Flask(__name__)
+app.config['DEBUG'] = True
 
 # Flask instance and mongo db url configuration
 app.config['MONGODB_SETTINGS'] = {
