@@ -13,9 +13,38 @@ const MainPage = () => {
 
           <h1 className="mt-5 text-center tagline ">Welcome to DocFinder</h1>
 
-          <p className="mt-5 ">
+          <div className="row align-items-center">
+              <div className="col-1"></div>
+              <div className="col-10 text-center">
+                <p className="mt-5 mx-5">
+                  DocFinder is a web application designed to streamline the process of finding and
+                  booking appointments with registered doctors online. With a user-friendly interface,
+                  patients can easily search for doctors based on their specialties and schedule
+                  appointments at their convenience.
+                </p>
+              </div>
+              <div className="col-1"></div>
+          </div>
 
-          </p>
+            <div className="row align-items-center">
+              <div className="col-1"></div>
+              <div className="col-10 mx-5">
+                <h3 className="mx-5 mt-5">New User ?</h3>
+                <p className="mt-2 mx-5">
+                  If you are a new user and want to register click here:
+                     <a href="#" className="btn customButton ms-2 " role="button" data-bs-toggle="button">Register</a>
+
+                </p>
+                  <h3 className="mx-5 mt-4">Already have an account ?</h3>
+                <p className="mt-2 mx-5">
+                  If you have an account and want to login click here:
+                     <a href="#" className="btn customButton ms-2 " role="button" data-bs-toggle="button">Login</a>
+
+                </p>
+
+              </div>
+              <div className="col-1"></div>
+          </div>
         {/*<section1>*/}
         {/*    <div className="container mt-5">*/}
         {/*        <div className="row justify-content-between ">*/}

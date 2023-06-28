@@ -22,24 +22,26 @@ code {
 
 /*welcome tag line*/
 .tagline{
-  font-size: 3rem;
+  font-size: 3.3rem;
 }
 h1{
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
   color: chocolate;
-  text-shadow: 2px 2px 3px black;
+  text-shadow: 3px 3px 3px black;
 }
 /*#f33221*/
 h2{
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
 }
+
+/*headings */
 h3{
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
-  color: black;
-
+  color: chocolate;
+  text-shadow: 2px 2px 2px black;
 }
 
 /*website name*/
@@ -49,10 +51,23 @@ h4
     text-shadow: 2px 2px 3px black;
 }
 
-.brown-background {
-  background-color: brown;
+/*paragraphs*/
+p{
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  font-size: 1.2rem;
+  text-shadow: 1px 1px 1px black;
 }
 
-.yellow-background {
-  background-color: #fafaad;
+/*custom button*/
+.customButton {
+  color: white;
+  text-shadow: 1px 1px 1px black;
+  background-color: #383838;
+}
+
+.customButton:hover {
+  color: white; /* Set the desired text color when hovering */
+  background-color: grey; /* Set the desired background color when hovering */
+
 }
