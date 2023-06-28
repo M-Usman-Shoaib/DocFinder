@@ -44,6 +44,13 @@ class RegisterDoctor(Resource):
         phone_no = data.get('phone_no')
         password = data.get('password')
 
+        # Check if the email or phone number already exist in the database
+        if doctors.objects(email=email).first():
+            return {'error': 'This Email is already registered'}, 400
+
+        if doctors.objects(phone_no=phone_no).first():
+            return {'error': 'This Phone no. is already registered'}, 400
+
         # Store the data in the MongoDB collection
         registration_data = {
             'name': name,
@@ -227,6 +234,7 @@ class DoctorSearchByPatient(Resource):
             return results
         except Exception as e:
             return {'message: ' f'Error occurred due to {str(e)}'}, 500
+
 
 def search_doctors(self, speciality, ratings, city):
 
