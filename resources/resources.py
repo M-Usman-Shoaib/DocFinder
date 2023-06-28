@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, jsonify
 from flask_restful import Resource
 from database.models import patients, doctors, appointments
 
@@ -33,7 +33,7 @@ class RegisterPatient(Resource):
             'email': email,
             'phone_no': phone_no,
             'password': password,
-            'status': "approved"
+            'status': "pending"
         }
         patients(**registration_data).save()
 
@@ -246,7 +246,7 @@ class DoctorSearchByPatient(Resource):
             city = data.get("city")
 
             results = self.search_doctors(speciality, ratings, city)
-            return results
+            return jsonify(results)
         except Exception as e:
             return {'message: ' f'Error occurred due to {str(e)}'}, 500
 
@@ -264,6 +264,7 @@ def search_doctors(self, speciality, ratings, city):
 
             if query:
                 filtered_doctors = doctors.objects(**query)
+
                 if filtered_doctors:
                     return filtered_doctors.to_json()
                 else:
