@@ -31,13 +31,13 @@ const MainPage = () => {
               <div className="col-10 mx-5">
                 <h3 className="mx-5 mt-5">New User ?</h3>
                 <p className="mt-2 mx-5">
-                  If you are a new user and want to register click here:
+                  If you are a new user and want to register as a patient or doctor click here:
                      <a href="#" className="btn customButton ms-2 " role="button" data-bs-toggle="button">Register</a>
 
                 </p>
                   <h3 className="mx-5 mt-4">Already have an account ?</h3>
                 <p className="mt-2 mx-5">
-                  If you have an account and want to login click here:
+                  If you already have an account and want to login click here:
                      <a href="#" className="btn customButton ms-2 " role="button" data-bs-toggle="button">Login</a>
 
                 </p>

@@ -59,15 +59,15 @@ p{
   text-shadow: 1px 1px 1px black;
 }
 
-/*custom button*/
+/*custom button #383838*/
 .customButton {
   color: white;
-  text-shadow: 1px 1px 1px black;
-  background-color: #383838;
+  /*text-shadow: 1px 1px 1px black;*/
+  background-color: #c95505;
 }
 
 .customButton:hover {
   color: white; /* Set the desired text color when hovering */
-  background-color: grey; /* Set the desired background color when hovering */
+  background-color: #464949; /* Set the desired background color when hovering */
 
 }
