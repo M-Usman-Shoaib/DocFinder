@@ -14,6 +14,17 @@ class RegisterPatient(Resource):
         city = data.get('city')
         password = data.get('password')
 
+        # Check if the email or phone number already exist in the database
+        if patients.objects(email=email).first():
+            return {'error': 'This Email is already registered'}, 400
+        elif doctors.objects(email=email).first():
+            return {'error': 'This Email is already registered'}, 400
+
+        if patients.objects(phone_no=phone_no).first():
+            return {'error': 'This Phone no. is already registered'}, 400
+        elif doctors.objects(phone_no=phone_no).first():
+            return {'error': 'This Phone no. is already registered'}, 400
+
         # Store the data in the MongoDB collection
         registration_data = {
             'name': name,
@@ -47,8 +58,12 @@ class RegisterDoctor(Resource):
         # Check if the email or phone number already exist in the database
         if doctors.objects(email=email).first():
             return {'error': 'This Email is already registered'}, 400
+        elif patients.objects(email=email).first():
+            return {'error': 'This Email is already registered'}, 400
 
         if doctors.objects(phone_no=phone_no).first():
+            return {'error': 'This Phone no. is already registered'}, 400
+        elif patients.objects(phone_no=phone_no).first():
             return {'error': 'This Phone no. is already registered'}, 400
 
         # Store the data in the MongoDB collection
