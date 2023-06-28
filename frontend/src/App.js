@@ -1,8 +1,9 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import './App.css';
 import MainPage from '../src/Pages/MainPage'
 import logo from './logo.svg';
-import './App.css';
+import Login from "./Pages/Login";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <Routes>
 
         <Route exact path="/" element={<MainPage/>} />
-        {/*<Route path="/about" element={<About/>} /> */}
+        <Route path="/login" element={<Login/>} />
         {/*<Route path="/cocktail/:id" element={<SingleCocktail/>} /> */}
         {/*<Route path="*" element={<Error/>} /> */}
 
