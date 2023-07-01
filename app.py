@@ -2,9 +2,11 @@ from flask import Flask, jsonify, request, render_template
 from database import dbinitialization
 from flask_restful import Api
 from resources import routes
+from flask_cors import CORS
 from flask_session import Session
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 app.config['DEBUG'] = True
 
 # Flask instance and mongo db url configuration
