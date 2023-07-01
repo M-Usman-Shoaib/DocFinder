@@ -78,3 +78,21 @@ p{
   background-position: center;
   min-height: 45rem;
 }
+
+/*Card border*/
+.cardBorder{
+  border-radius: 25px;
+}
+
+/*transparent card border*/
+.transparentCard {
+  background-color: transparent;
+}
+
+/*form text*/
+.formText{
+  color: chocolate;
+  font-weight: bold;
+}
+
+/**/
