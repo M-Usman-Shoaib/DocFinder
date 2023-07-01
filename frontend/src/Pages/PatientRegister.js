@@ -52,12 +52,14 @@ const PatientRegister = () => {
 
                       <p className=" h1 fw-bold mb-5 mx-1 mx-md-4 mt-4 formText ps-3">Enter your details</p>
 
-                      <form className="mx-1 mx-md-4 formText">
+                      <form className="mx-1 mx-md-4 formText" onSubmit={handleRegister}>
 
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-user fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
-                            <input type="text" id="name" placeholder="Name" className="form-control"/>
+                            <input type="text" id="name" placeholder="Name" value={name}
+                                   className="form-control"
+                                   onChange={(e) => setName(e.target.value)}/>
 
                           </div>
                         </div>
@@ -65,16 +67,20 @@ const PatientRegister = () => {
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-user fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
-                            <input type="number" id="age" placeholder="Age" className="form-control" readOnly/>
-
+                            <input type="number" id="age" placeholder="Age"
+                                    value={age}
+                                    onChange={(e) => setAge(e.target.value)}
+                                   className="form-control" />
                           </div>
                         </div>
-
 
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
-                            <input type="email" id="email" className="form-control" placeholder="Email"/>
+                            <input type="email" id="email" className="form-control"
+                                   onChange={(e) => setEmail(e.target.value)}
+                                    value={email}
+                                   placeholder="Email"/>
 
                           </div>
                         </div>
@@ -82,7 +88,10 @@ const PatientRegister = () => {
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
-                            <input type="password" id="password" className="form-control" placeholder="Password"/>
+                            <input type="password" id="password" className="form-control"
+                                   value={password}
+                                   onChange={(e) => setPassword(e.target.value)}
+                                   placeholder="Password"/>
 
                           </div>
                         </div>
@@ -90,20 +99,25 @@ const PatientRegister = () => {
                        <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-user fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
-                            <input type="text" id="city" className="form-control" placeholder="City"/>
+                            <input type="text" id="city" className="form-control" placeholder="City"
+                             value={city}
+                              onChange={(e) => setCity(e.target.value)}/>
                           </div>
                         </div>
 
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-user fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
-                            <input type="text" id="phone_no" className="form-control" placeholder="Phone Number"/>
+                            <input type="text" id="phone_no" className="form-control"
+                                   value={phoneNo}
+                                   onChange={(e) => setPhoneNo(e.target.value)}
+                                   placeholder="Phone Number"/>
                           </div>
                         </div>
 
 
                         <div className="d-flex mx-4 mb-3 mb-lg-4">
-                          <button type="button" className="btn customButton">Register</button>
+                          <button type="submit" className="btn customButton">Register</button>
                         </div>
 
                       </form>
