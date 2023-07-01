@@ -18,7 +18,7 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/registration" element={<Registration/>} />
         <Route path="/patientRegister" element={<PatientRegister/>} />
-        {/*<Route path="/cocktail/:id" element={<SingleCocktail/>} /> */}
+
         {/*<Route path="*" element={<Error/>} /> */}
 
       </Routes>
