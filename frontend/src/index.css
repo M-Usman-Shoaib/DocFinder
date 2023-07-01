@@ -1,7 +1,5 @@
 body {
-  /*background-image: url('../public/images/background.jpg');*/
-  /*background-repeat: no-repeat;*/
-  /*background-size: cover;*/
+
   /*background-color: black;*/
 }
 
@@ -70,4 +68,13 @@ p{
   color: white; /* Set the desired text color when hovering */
   background-color: #464949; /* Set the desired background color when hovering */
 
+}
+
+/*Website background */
+.background{
+  background-image: url('../public/images/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 45rem;
 }

@@ -4,6 +4,7 @@ import './App.css';
 import MainPage from '../src/Pages/MainPage'
 import logo from './logo.svg';
 import Login from "./Pages/Login";
+import Registration from "./Pages/Registration";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
 
         <Route exact path="/" element={<MainPage/>} />
         <Route path="/login" element={<Login/>} />
+        <Route path="/registration" element={<Registration/>} />
         {/*<Route path="/cocktail/:id" element={<SingleCocktail/>} /> */}
         {/*<Route path="*" element={<Error/>} /> */}
 
