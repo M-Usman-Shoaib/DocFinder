@@ -17,7 +17,7 @@ const DoctorRegister = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://127.0.0.1:5000/api/patients/register', {
+      const response = await axios.post('http://127.0.0.1:5000/api/doctors/register', {
         name,
         email,
         password,
@@ -100,7 +100,9 @@ const DoctorRegister = () => {
                             <input type="password" id="password" className="form-control"
                                    value={password}
                                    onChange={(e) => setPassword(e.target.value)}
-                                   placeholder="Password"/>
+                                   placeholder="Password"
+
+                            />
 
                           </div>
                         </div>
@@ -136,10 +138,10 @@ const DoctorRegister = () => {
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-user fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
-                            <input type="text"  id="hospital_name" className="form-control"
+                            <input type="text"  id="" className="form-control"
                                    placeholder="Hospital/Clinic Name"
-                             value={experience}
-                              onChange={(e) => setExperience(e.target.value)}/>
+                             value={hospitalName}
+                              onChange={(e) => setHospitalName(e.target.value)}/>
                           </div>
                         </div>
 
@@ -148,6 +150,7 @@ const DoctorRegister = () => {
                           <div className="form-outline flex-fill mb-0">
                             <input type="text" id="phone_no" className="form-control"
                                    value={phoneNo}
+
                                    onChange={(e) => setPhoneNo(e.target.value)}
                                    placeholder="Phone Number"/>
                           </div>
