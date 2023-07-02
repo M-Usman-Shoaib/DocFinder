@@ -50,8 +50,8 @@ const DoctorRegister = () => {
     <div className="background pt-2 pb-5 ">
       <h1 className="mt-5 text-center tagline ">Doctor Registration</h1>
 
-      <section className="vh-25 ">
-        <div className="container h-50">
+      <section className="vh-10 ">
+        <div className="container h-10">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-12 col-xl-11">
               <div className="card text-black cardBorder transparentCard border mt-5 " >
@@ -163,8 +163,8 @@ const DoctorRegister = () => {
                     </div>
                     <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2 ">
 
-                      <img src={process.env.PUBLIC_URL + "/images/regPatient.png"}
-                            className="img-fluid pe-5"
+                      <img src={process.env.PUBLIC_URL + "/images/docRegister.png"}
+                            className="img-fluid p-5 "
                             alt="patient registration"/>
 
                     </div>
