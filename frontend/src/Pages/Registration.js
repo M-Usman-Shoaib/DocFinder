@@ -17,7 +17,7 @@ const Registration = () => {
                   <h3 className="mx-5 mt-5">Doctor ?</h3>
                 <p className="mt-2 mx-5">
                   If you want to register as a doctor click here:
-                     <a href="#" className="btn customButton ms-2 " role="button" data-bs-toggle="button">Doctor</a>
+                     <a href="/doctorRegister" className="btn customButton ms-2 " role="button" data-bs-toggle="button">Doctor</a>
 
                 </p>
 
