@@ -6,6 +6,7 @@ import logo from './logo.svg';
 import Login from "./Pages/Login";
 import Registration from "./Pages/Registration";
 import PatientRegister from "./Pages/Patient/PatientRegister";
+import DoctorRegister from "./Pages/Doctor/DoctorRegister";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/registration" element={<Registration/>} />
         <Route path="/patientRegister" element={<PatientRegister/>} />
+        <Route path="/doctorRegister" element={<DoctorRegister/>} />
 
         {/*<Route path="*" element={<Error/>} /> */}
 

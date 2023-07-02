@@ -4,9 +4,12 @@ import axios from "axios";
 
 const DoctorRegister = () => {
   const [name, setName] = useState('');
+  const [gender, setGender] = useState('');
+  const [speciality, setSpeciality] = useState('');
+  const [experience, setExperience] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [age, setAge] = useState('');
+  const [hospitalName, setHospitalName] = useState('');
   const [phoneNo, setPhoneNo] = useState('');
   const [city, setCity] = useState('');
 
@@ -18,7 +21,10 @@ const DoctorRegister = () => {
         name,
         email,
         password,
-        age,
+        gender,
+        speciality,
+        experience,
+        hospital_name: hospitalName,
         phone_no: phoneNo,
         city,
       });
@@ -29,7 +35,10 @@ const DoctorRegister = () => {
       setName('');
       setEmail('');
       setPassword('');
-      setAge('');
+      setGender('');
+      setSpeciality('');
+      setExperience('');
+      setHospitalName('')
       setPhoneNo('');
       setCity('');
     } catch (error) {
@@ -39,7 +48,7 @@ const DoctorRegister = () => {
 
   return (
     <div className="background pt-2 pb-5 ">
-      <h1 className="mt-5 text-center tagline ">Patient Registration</h1>
+      <h1 className="mt-5 text-center tagline ">Doctor Registration</h1>
 
       <section className="vh-25 ">
         <div className="container h-50">
@@ -67,9 +76,9 @@ const DoctorRegister = () => {
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-user fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
-                            <input type="number" id="age" placeholder="Age"
-                                    value={age}
-                                    onChange={(e) => setAge(e.target.value)}
+                            <input type="text" id="gender" placeholder="Gender (e.g. Male)"
+                                    value={gender}
+                                    onChange={(e) => setGender(e.target.value)}
                                    className="form-control" />
                           </div>
                         </div>
@@ -102,6 +111,35 @@ const DoctorRegister = () => {
                             <input type="text" id="city" className="form-control" placeholder="City"
                              value={city}
                               onChange={(e) => setCity(e.target.value)}/>
+                          </div>
+                        </div>
+
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-user fa-lg me-3 fa-fw"></i>
+                          <div className="form-outline flex-fill mb-0">
+                            <input type="text" id="speciality" className="form-control" placeholder="Speciality (e.g. Skin)"
+                             value={speciality}
+                              onChange={(e) => setSpeciality(e.target.value)}/>
+                          </div>
+                        </div>
+
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-user fa-lg me-3 fa-fw"></i>
+                          <div className="form-outline flex-fill mb-0">
+                            <input type="number" step="0.1" id="experience" className="form-control"
+                                    placeholder="Experience in years"
+                                    value={experience}
+                                    onChange={(e) => setExperience(e.target.value)}/>
+                          </div>
+                        </div>
+
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-user fa-lg me-3 fa-fw"></i>
+                          <div className="form-outline flex-fill mb-0">
+                            <input type="text"  id="hospital_name" className="form-control"
+                                   placeholder="Hospital/Clinic Name"
+                             value={experience}
+                              onChange={(e) => setExperience(e.target.value)}/>
                           </div>
                         </div>
 
@@ -141,4 +179,4 @@ const DoctorRegister = () => {
   )
 }
 
-export default PatientRegister
+export default DoctorRegister

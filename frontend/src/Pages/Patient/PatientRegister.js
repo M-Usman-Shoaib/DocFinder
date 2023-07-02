@@ -41,7 +41,7 @@ const PatientRegister = () => {
     <div className="background pt-2 pb-5 ">
       <h1 className="mt-5 text-center tagline ">Patient Registration</h1>
 
-      <section className="vh-25 " >
+      <section className="vh-25">
         <div className="container h-50">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-12 col-xl-11">
