@@ -45,7 +45,7 @@ const PatientRegister = () => {
 
                       <p className="h1 fw-bold mb-5 mx-1 mx-md-4 mt-4 text-center formText ps-1">Enter your details:</p>
 
-                      <form className="mx-1 mx-md-4 formText justify-content-center" onSubmit={handleSubmit}
+                      <form className="mx-1 mx-md-4 formText " onSubmit={handleSubmit}
                             autoComplete="off">
 
                         <div className="mb-4">
@@ -131,8 +131,8 @@ const PatientRegister = () => {
                           {errors.phone_no && touched.phone_no && <p className="inputErrorText mt-1 ms-1">{errors.phone_no}</p>}
                         </div>
 
-                        <div className="d-flex mx-4 mb-3 mb-lg-4 justify-content-center">
-                          <button disabled={isSubmitting} type="submit" className="btn customButton">Register</button>
+                        <div className="d-flex mx-4 mb-3 mb-lg-4 justify-content-center ">
+                          <button disabled={isSubmitting} type="submit" className="btn customButton ">Register</button>
                         </div>
 
                       </form>
