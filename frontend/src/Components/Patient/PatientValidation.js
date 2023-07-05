@@ -1,6 +1,7 @@
 import * as Yup from 'yup'
 
-const phoneNumberRule = /^(?:\+92|0)[1-9]\d{8}$/
+const phoneNumberRule = /^(\+92)?(0092)?(92)?(0)?(3)([0-9]{2})([0-9]{7})$/;
+
 export const PatientValidation = Yup.object().shape(
     {
         name: Yup.string().required("Name is required"),
