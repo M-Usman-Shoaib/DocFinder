@@ -1,9 +1,9 @@
-from flask import request
+from flask import request, jsonify
 from flask_restful import Resource
 from database.models import patients, doctors, appointments
 
 
-class registerPatient(Resource):
+class RegisterPatient(Resource):
     def post(self):
         # Get the data from the request
         data = request.get_json()
@@ -14,6 +14,17 @@ class registerPatient(Resource):
         city = data.get('city')
         password = data.get('password')
 
+        # Check if the email or phone number already exist in the database
+        if patients.objects(email=email).first():
+            return {'error': 'This Email is already registered'}, 400
+        elif doctors.objects(email=email).first():
+            return {'error': 'This Email is already registered'}, 400
+
+        if patients.objects(phone_no=phone_no).first():
+            return {'error': 'This Phone no. is already registered'}, 400
+        elif doctors.objects(phone_no=phone_no).first():
+            return {'error': 'This Phone no. is already registered'}, 400
+
         # Store the data in the MongoDB collection
         registration_data = {
             'name': name,
@@ -22,7 +33,7 @@ class registerPatient(Resource):
             'email': email,
             'phone_no': phone_no,
             'password': password,
-            'status': "approved"
+            'status': "pending"
         }
         patients(**registration_data).save()
 
@@ -30,7 +41,7 @@ class registerPatient(Resource):
         return {'message': 'Registration pending'}, 200
 
 
-class registerDoctor(Resource):
+class RegisterDoctor(Resource):
     def post(self):
         # Get the data from the request
         data = request.get_json()
@@ -43,6 +54,17 @@ class registerDoctor(Resource):
         email = data.get('email')
         phone_no = data.get('phone_no')
         password = data.get('password')
+
+        # Check if the email or phone number already exist in the database
+        if doctors.objects(email=email).first():
+            return {'error': 'This Email is already registered'}, 400
+        elif patients.objects(email=email).first():
+            return {'error': 'This Email is already registered'}, 400
+
+        if doctors.objects(phone_no=phone_no).first():
+            return {'error': 'This Phone no. is already registered'}, 400
+        elif patients.objects(phone_no=phone_no).first():
+            return {'error': 'This Phone no. is already registered'}, 400
 
         # Store the data in the MongoDB collection
         registration_data = {
@@ -213,7 +235,6 @@ class DeleteDoctor(Resource):
             return {"message": f"Error occurred: {str(e)}"}, 500
 
 
-
 class DoctorSearchByPatient(Resource):
 
     def get(self):
@@ -225,11 +246,12 @@ class DoctorSearchByPatient(Resource):
             city = data.get("city")
 
             results = self.search_doctors(speciality, ratings, city)
-            return results
+            return jsonify(results)
         except Exception as e:
             return {'message: ' f'Error occurred due to {str(e)}'}, 500
 
-    def search_doctors(self, speciality, ratings, city):
+
+def search_doctors(self, speciality, ratings, city):
 
         try:
             query = {}
@@ -242,6 +264,7 @@ class DoctorSearchByPatient(Resource):
 
             if query:
                 filtered_doctors = doctors.objects(**query)
+
                 if filtered_doctors:
                     return filtered_doctors.to_json()
                 else:
@@ -309,7 +332,6 @@ class PatientAppointmentStatus(Resource):
                 return {'message': "No approved appointments found for the patient."}, 404
         except Exception as e:
             return {"message": f"Error occurred due to {str(e)}"}, 500
-
 
 
 class DoctorRatings(Resource):

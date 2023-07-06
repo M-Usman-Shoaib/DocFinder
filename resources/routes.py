@@ -1,8 +1,8 @@
 from .resources import *
 
 def initialize_routes(api):
-    api.add_resource(registerPatient, '/api/patients/register')
-    api.add_resource(registerDoctor, '/api/doctors/register')
+    api.add_resource(RegisterPatient, '/api/patients/register')
+    api.add_resource(RegisterDoctor, '/api/doctors/register')
     api.add_resource(DoctorLogin, '/api/doctors/login')
     api.add_resource(PatientLogin, '/api/patients/login')
     api.add_resource(DoctorSearchByPatient, '/api/patients/search')
