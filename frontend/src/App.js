@@ -7,6 +7,8 @@ import Login from "./Pages/Login";
 import Registration from "./Pages/Registration";
 import PatientRegister from "./Pages/Patient/PatientRegister";
 import DoctorRegister from "./Pages/Doctor/DoctorRegister";
+import DoctorLogin from "./Pages/Doctor/DoctorLogin";
+import PatientLogin from "./Pages/Patient/PatientLogin";
 
 function App() {
   return (
@@ -20,6 +22,9 @@ function App() {
         <Route path="/registration" element={<Registration/>} />
         <Route path="/patientRegister" element={<PatientRegister/>} />
         <Route path="/doctorRegister" element={<DoctorRegister/>} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/doctorLogin" element={<DoctorLogin/>} />
+        <Route path="/patientLogin" element={<PatientLogin/>} />
 
         {/*<Route path="*" element={<Error/>} /> */}
 

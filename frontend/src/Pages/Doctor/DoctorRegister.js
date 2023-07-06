@@ -4,8 +4,9 @@ import {useFormik} from "formik";
 import {DoctorValidation} from "../../Components/Doctor/DoctorValidation";
 
 
-
-const onSubmit = async (values, actions)=>{
+const onSubmit = async (e,values, actions)=>{
+    console.log("onsubmit")
+    e.preventDefault()
   try {
     const response = await axios.post("http://127.0.0.1:5000/api/doctors/register", values);
         console.log(response.data); // Handle the response data as needed
@@ -13,10 +14,14 @@ const onSubmit = async (values, actions)=>{
         // Reset the form fields
         actions.resetForm();
 
+      // Return a promise that resolves when the form is successfully submitted
+        return Promise.resolve();
+
   }catch (error) {
     console.error(error)
   }
 }
+
 
 const DoctorRegister = () => {
 
@@ -34,7 +39,7 @@ const DoctorRegister = () => {
         hospital_name : "",
       },
     validationSchema : DoctorValidation,
-    onSubmit
+    onSubmit,
   });
 
 
@@ -44,7 +49,7 @@ const DoctorRegister = () => {
 
       <section className="vh-10 ">
         <div className="container h-10">
-          <div className="row d-flex justify-content-center align-items-center h-100">
+          <div className="row justify-content-center align-items-center h-100">
             <div className="col-lg-8">
               <div className="card text-black cardBorder transparentCard border mt-5 " >
                 <div className="card-body p-md-1">
@@ -53,13 +58,11 @@ const DoctorRegister = () => {
 
                       <p className=" h1 fw-bold mb-5 mx-1 mx-md-4 mt-4 formText text-center ps-1">Enter your details</p>
 
-                      <form className="mx-1 mx-md-4 formText justify-content-center"
-                            onSubmit={handleSubmit}
-                            autoComplete="off">
+                      <form className="mx-1 mx-md-4 formText " autoComplete="off">
 
-                        <div className="d-flex flex-row align-items-center mb-4">
-                          <i className="fas fa-user fa-lg me-3 fa-fw"></i>
-                          <div className="form-outline flex-fill mb-0">
+
+
+                          <div className="mb-4">
                             <input type="text" id="name" placeholder="Name"
                                    value={values.name}
                                    className={`form-control ${errors.name && touched.name ? "is-invalid" : ""}`}
@@ -69,11 +72,8 @@ const DoctorRegister = () => {
                               {errors.name && touched.name && <p className="inputErrorText mt-1 ms-1">{errors.name}</p>}
 
                           </div>
-                        </div>
 
-                        <div className="d-flex flex-row align-items-center mb-4">
-                          <i className="fas fa-user fa-lg me-3 fa-fw"></i>
-                          <div className="form-outline flex-fill mb-0">
+                          <div className="form-outline flex-fill mb-4">
                             <input type="text" id="gender" placeholder="Gender (e.g. Male)"
                                     value={values.gender}
                                     onChange={handleChange}
@@ -82,11 +82,11 @@ const DoctorRegister = () => {
                             />
                               {errors.gender && touched.gender && <p className="inputErrorText mt-1 ms-1">{errors.gender}</p>}
                           </div>
-                        </div>
 
-                        <div className="d-flex flex-row align-items-center mb-4">
-                          <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                          <div className="form-outline flex-fill mb-0">
+
+
+
+                          <div className=" mb-4">
                             <input type="email" id="email"
                                    className={`form-control ${errors.email && touched.email ? "is-invalid" : ""}`}
                                    onChange={handleChange}
@@ -96,11 +96,10 @@ const DoctorRegister = () => {
                               {errors.email && touched.email && <p className="inputErrorText mt-1 ms-1">{errors.email}</p>}
 
                           </div>
-                        </div>
 
-                        <div className="d-flex flex-row align-items-center mb-4">
-                          <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
-                          <div className="form-outline flex-fill mb-0">
+
+
+                          <div className="form-outline flex-fill mb-4">
                             <input type="password" id="password"
                                    className={`form-control ${errors.password && touched.password ? "is-invalid" : ""}`}
                                    value={values.password}
@@ -112,11 +111,11 @@ const DoctorRegister = () => {
                               {errors.password && touched.password && <p className="inputErrorText mt-1 ms-1">{errors.password}</p>}
 
                           </div>
-                        </div>
 
-                       <div className="d-flex flex-row align-items-center mb-4">
-                          <i className="fas fa-user fa-lg me-3 fa-fw"></i>
-                          <div className="form-outline flex-fill mb-0">
+
+
+
+                          <div className="form-outline flex-fill mb-4">
                             <input type="text" id="city"
                                    className={`form-control ${errors.city && touched.city ? "is-invalid" : ""}`}
                                    placeholder="City"
@@ -125,11 +124,11 @@ const DoctorRegister = () => {
                                     onBlur={handleBlur}/>
                               {errors.city && touched.city && <p className="inputErrorText mt-1 ms-1">{errors.city}</p>}
                           </div>
-                        </div>
 
-                        <div className="d-flex flex-row align-items-center mb-4">
-                          <i className="fas fa-user fa-lg me-3 fa-fw"></i>
-                          <div className="form-outline flex-fill mb-0">
+
+
+
+                          <div className="mb-4">
                             <input type="text" id="speciality"
                                    className={`form-control ${errors.speciality && touched.speciality ? "is-invalid" : ""}`}
                                    placeholder="Speciality (e.g. Skin)"
@@ -138,11 +137,11 @@ const DoctorRegister = () => {
                                     onBlur={handleBlur}/>
                               {errors.speciality && touched.speciality && <p className="inputErrorText mt-1 ms-1">{errors.speciality}</p>}
                           </div>
-                        </div>
 
-                        <div className="d-flex flex-row align-items-center mb-4">
-                          <i className="fas fa-user fa-lg me-3 fa-fw"></i>
-                          <div className="form-outline flex-fill mb-0">
+
+
+
+                          <div className=" mb-4">
                             <input type="number" step="0.1" id="experience"
                                    className={`form-control ${errors.experience && touched.experience ? "is-invalid" : ""}`}
                                     placeholder="Experience in years"
@@ -151,11 +150,11 @@ const DoctorRegister = () => {
                                     onBlur={handleBlur}/>
                               {errors.experience && touched.experience && <p className="inputErrorText mt-1 ms-1">{errors.experience}</p>}
                           </div>
-                        </div>
 
-                        <div className="d-flex flex-row align-items-center mb-4">
-                          <i className="fas fa-user fa-lg me-3 fa-fw"></i>
-                          <div className="form-outline flex-fill mb-0">
+
+
+
+                          <div className=" mb-4">
                             <input type="text"  id="hospital_name"
                                    className={`form-control ${errors.hospital_name && touched.hospital_name ? "is-invalid" : ""}`}
                                    placeholder="Hospital/Clinic Name"
@@ -164,11 +163,11 @@ const DoctorRegister = () => {
                                     onBlur={handleBlur}/>
                               {errors.hospital_name && touched.hospital_name && <p className="inputErrorText mt-1 ms-1">{errors.hospital_name}</p>}
                           </div>
-                        </div>
 
-                        <div className="d-flex flex-row align-items-center mb-4">
-                          <i className="fas fa-user fa-lg me-3 fa-fw"></i>
-                          <div className="form-outline flex-fill mb-0">
+
+
+
+                          <div className=" mb-4">
                             <input type="text" id="phone_no"
                                    className={`form-control ${errors.phone_no && touched.phone_no ? "is-invalid" : ""}`}
                                    value={values.phone_no}
@@ -177,11 +176,11 @@ const DoctorRegister = () => {
                                    placeholder="Phone Number"/>
                               {errors.phone_no && touched.phone_no && <p className="inputErrorText mt-1 ms-1">{errors.phone_no}</p>}
                           </div>
-                        </div>
+
 
 
                         <div className="d-flex mx-4 mb-3 mb-lg-4 justify-content-center">
-                          <button disabled={isSubmitting} type="submit" className="btn customButton">Register</button>
+                          <button disabled={isSubmitting}  type="submit" onClick={onSubmit} className="btn customButton">Register</button>
                         </div>
 
                       </form>
