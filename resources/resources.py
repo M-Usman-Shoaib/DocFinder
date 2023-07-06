@@ -360,3 +360,24 @@ class DoctorRatings(Resource):
                 return {"message": "Invalid patient or doctor ID."}, 404
         except Exception as e:
             return {"message": f"Error occurred: {str(e)}"}, 500
+
+
+class PatientsPendingRequestLookup(Resource):
+
+    def get(self):
+        try:
+            results = patients.objects(status='pending')
+            if results:
+                pending_patients = []
+                for patient in results:
+                    pending_patients.append({
+                        "patient_id": patient.patient_id,
+                        "name": patient.name,
+                        "status": patient.status
+                    })
+                return {"message": "List of pending patients:",
+                        "pending_patients": pending_patients}, 200
+            else:
+                return {"message": "No pending patients found."}, 404
+        except Exception as e:
+            return {"message": f"Error occurred: {str(e)}"}, 500
