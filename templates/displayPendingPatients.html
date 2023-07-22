@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pending Patients</title>
+</head>
+<body>
+    <table id="patientTable"></table>
+    <script>
+        // Function to fetch patient records with status: "pending" and display in a table
+        function displayPendingPatients() {
+            // Replace '/patientAPI/pending' with the actual API endpoint to fetch pending patients
+            fetch('/patientAPI/pending')
+                .then(response => response.json())
+                .then(data => {
+                    const table = document.getElementById('patientTable');
+
+                    // Clear previous table data
+                    table.innerHTML = '';
+
+                    // Create table header
+                    const tableHeader = table.createTHead();
+                    const headerRow = tableHeader.insertRow();
+                    headerRow.insertCell().textContent = 'Name';
+                    headerRow.insertCell().textContent = 'Age';
+                    headerRow.insertCell().textContent = 'City';
+                    headerRow.insertCell().textContent = 'Email';
+                    headerRow.insertCell().textContent = 'Phone';
+                    headerRow.insertCell().textContent = 'Actions';
+
+                    // Create table body
+                    const tableBody = table.createTBody();
+                    data.forEach(patient => {
+                        const row = tableBody.insertRow();
+                        row.insertCell().textContent = patient.name;
+                        row.insertCell().textContent = patient.age;
+                        row.insertCell().textContent = patient.city;
+                        row.insertCell().textContent = patient.email;
+                        row.insertCell().textContent = patient.phone_no;
+
+                        // Create buttons for approve and reject actions
+                        const actionsCell = row.insertCell();
+                        const approveBtn = document.createElement('button');
+                        approveBtn.textContent = 'Approve';
+                        approveBtn.addEventListener('click', () => handleAction(patient._id, 'approved'));
+                        actionsCell.appendChild(approveBtn);
+
+                        const rejectBtn = document.createElement('button');
+                        rejectBtn.textContent = 'Reject';
+                        rejectBtn.addEventListener('click', () => handleAction(patient._id, 'rejected'));
+                        actionsCell.appendChild(rejectBtn);
+                    });
+                })
+                .catch(error => console.error('Error fetching patient data:', error));
+        }
+
+        // Function to handle the approve or reject action
+        function handleAction(patientId, status) {
+            // Check if the patientId is an object (from the initial page load) or a string (from the button click)
+            if (typeof patientId === 'object') {
+                // Extract the patientId from the object
+                patientId = patientId.$oid;
+            }
+
+            // Replace '/patientAPI/' + patientId + '/' + status with the actual API endpoint to update patient status
+            fetch('/patientAPI/' + encodeURIComponent(patientId) + '/' + status, { method: 'PUT' })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Patient status updated:', data);
+                    // After handling the action, update the table to reflect the changes
+                    displayPendingPatients();
+                })
+                .catch(error => console.error('Error updating patient status:', error));
+        }
+
+        // Call the function to display pending patients on page load
+        displayPendingPatients();
+    </script>
+</body>
+</html>
