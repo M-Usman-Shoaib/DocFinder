@@ -9,7 +9,6 @@ class patients(db.Document):
     phone_no = db.StringField(required=True)
     password = db.StringField(required=True)
     status = db.StringField(required=True)
-    has_given_rating = db.BooleanField(default=False)
 
 
 class doctors(db.Document):
@@ -29,7 +28,7 @@ class doctors(db.Document):
     phone_no = db.StringField(required=True)
     password = db.StringField(required=True)
     status = db.StringField(required=True)
-    examined_patient_id = db.StringField(default="none")
+
 
 
 class appointments(db.Document):
