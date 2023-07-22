@@ -4,7 +4,8 @@ from flask_restful import Api
 from resources import routes
 from flask_session import Session
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
+
 
 app.config['DEBUG'] = True
 

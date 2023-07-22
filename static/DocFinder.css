@@ -1,0 +1,35 @@
+
+
+
+/*dropdown menu width*/
+.custom-dropdown-menu{
+    min-width: 8px;
+}
+
+/*blue button colour*/
+.blue-button-color{
+    background-color: #006;
+
+}
+
+/*yellow colour */
+.yellow-colour{
+    color: #e18400;
+}
+
+/*blue colour */
+.blue-colour
+{
+    color: #006;
+}
+
+/*logo*/
+.logo{
+    font-weight: bolder;
+    font-size: larger;
+}
+
+/*text weight in navbar*/
+.nav-text{
+    font-weight: 600;
+}
