@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}title{% endblock %}
+
+{% block content %}
+   <div style="background-image: url('{{ url_for('static', filename='header-bg.jpg') }}'); background-size: cover; background-position: center; min-height: 550px">
+        <div class="container">
+
+            <h1 class="text-center pt-5">Find and book the <span class="yellow-colour">best doctors</span> near you</h1>
+
+        </div>
+    </div>
+{% endblock %}

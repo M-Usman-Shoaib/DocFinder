@@ -22,6 +22,13 @@ api = Api(app)
 # initialize routes
 routes.initialize_routes(api)
 
+@app.route('/')
+def home():
+    return render_template('homePage.html', title='Home')
+
+@app.route('/about')
+def about():
+    return render_template('about.html', title='About Us')
 
 @app.route('/patientRegistration')
 def patientRegistration():
