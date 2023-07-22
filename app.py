@@ -6,6 +6,8 @@ from flask_session import Session
 
 app = Flask(__name__)
 
+app.config['DEBUG'] = True
+
 # Flask instance and mongo db url configuration
 app.config['MONGODB_SETTINGS'] = {
     'host': 'mongodb://localhost:27017/DocFinder'}
@@ -18,6 +20,16 @@ api = Api(app)
 
 # initialize routes
 routes.initialize_routes(api)
+
+
+@app.route('/patientRegistration')
+def patientRegistration():
+    return render_template("patientRegistration.html")
+
+
+@app.route('/doctorRegistration')
+def doctorRegistration():
+    return render_template("doctorRegistration.html")
 
 
 if __name__ == '__main__':
