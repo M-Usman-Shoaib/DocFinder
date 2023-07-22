@@ -37,3 +37,9 @@
 h1{
     color: white;
 }
+
+/* Custom CSS for form*/
+.my-custom-container {
+    max-width: 400px; /* Adjust the width as needed */
+    /* Add any other custom styles for the container if required */
+}

@@ -1,30 +1,117 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Patient Registration</title>
-</head>
-<body>
-    <h1>Patient Registration</h1>
-    <form method="post" action="/patientAPI">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br>
+{% extends "base.html" %}
 
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="age" required><br>
+{% block title %}title{% endblock %}
 
-        <label for="city">City:</label>
-        <input type="text" id="city" name="city" required><br>
+{% block content %}
+    <section class="vh-75  gradient-custom " style="background-image: url('{{ url_for('static', filename='header-bg.jpg') }}'); background-size: cover; background-position: center; min-height: 550px" >
+  <div class="container py-5 h-75">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-2 pb-2 pb-md-0 mb-md-5">Patient Registration Form</h3>
+            <form  method="post" action="/patientAPI" >
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br>
+              <div class="row">
+                <div class="col-md-6 mb-4">
 
-        <label for="phone_no">Phone Number:</label>
-        <input type="text" id="phone_no" name="phone_no" required><br>
+                  <div class="form-outline">
+                    <input type="text" id="name" class="form-control form-control" required/>
+                    <label class="form-label" for="name">Name</label>
+                  </div>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br>
+                </div>
+                <div class="col-md-6 mb-4">
 
-        <input type="submit" value="Register">
-    </form>
-</body>
-</html>
+                  <div class="form-outline">
+                    <input type="number" id="age" class="form-control form-control" required />
+                    <label class="form-label" for="age">Age</label>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 d-flex align-items-center">
+
+                  <div class="form-outline datepicker w-100">
+                    <input type="text" class="form-control form-control" id="phone_no" required/>
+                    <label for="phone_no" class="form-label">Phone Number</label>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4">
+
+                  <h6 class="mb-2 pb-1">Gender: </h6>
+
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender"
+                      value="option1" checked />
+                    <label class="form-check-label" for="femaleGender">Female</label>
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender"
+                      value="option2" />
+                    <label class="form-check-label" for="maleGender">Male</label>
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender"
+                      value="option3" />
+                    <label class="form-check-label" for="otherGender">Other</label>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+
+                  <div class="form-outline">
+                    <input type="email" id="email" class="form-control form-control" required/>
+                    <label class="form-label" for="email">Email</label>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4 pb-2">
+
+                  <div class="form-outline">
+                    <input type="password" id="password" class="form-control form-control" required/>
+                    <label class="form-label" for="password">Password</label>
+                  </div>
+
+                </div>
+
+
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+
+                  <select class="select form-control" id="city">
+
+                    <option value="1">Select city</option>
+                    <option value="2">Lahore</option>
+                    <option value="3">Karachi</option>
+                    <option value="4">Islamabad</option>
+                    <option value="5">Rawalpindi</option>
+                  </select>
+                  <label class="form-label select-label">City</label>
+
+                </div>
+              </div>
+
+              <div class="mt-4 pt-2">
+                <input class="btn btn-secondary blue-button-color" type="submit" value="Submit" />
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</section>
+{% endblock %}
