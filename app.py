@@ -36,7 +36,7 @@ def about():
 
 @app.route('/patientRegistration')
 def patientRegistration():
-    return render_template("patientRegistration.html")
+    return render_template("patientRegistration.html", title='Patient Registration')
 
 
 @app.route('/doctorRegistration')

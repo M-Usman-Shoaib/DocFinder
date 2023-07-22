@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Patient Registration{% endblock %}
+{% block title %}title{% endblock %}
 
 {% block content %}
     <section class="vh-75  gradient-custom " style="background-image: url('{{ url_for('static', filename='header-bg.jpg') }}'); background-size: cover; background-position: center; min-height: 550px" >
@@ -16,7 +16,7 @@
                 <div class="col-md-6 mb-4">
 
                   <div class="form-outline">
-                    <input type="text" id="name" class="form-control form-control" required/>
+                    <input type="text" id="name" name="name" class="form-control form-control" required/>
                     <label class="form-label ms-1" for="name">Name</label>
                   </div>
 
@@ -24,7 +24,7 @@
                 <div class="col-md-6 mb-4">
 
                   <div class="form-outline">
-                    <input type="number" id="age" class="form-control form-control" required />
+                    <input type="number" id="age" name="age" class="form-control form-control" required />
                     <label class="form-label ms-1" for="age">Age</label>
                   </div>
 
@@ -35,14 +35,14 @@
                 <div class="col-md-6 mb-4 d-flex align-items-center">
 
                   <div class="form-outline datepicker w-100">
-                    <input type="text" class="form-control form-control" id="phone_no" required/>
+                    <input type="text"  class="form-control form-control" name="phone_no" id="phone_no" required/>
                     <label for="phone_no" class="form-label ms-1">Phone Number</label>
                   </div>
 
                 </div>
                 <div class="col-md-6 mb-4">
                      <div class="form-outline">
-                    <input type="password" id="password" class="form-control form-control" required/>
+                    <input type="password" id="password" name="password" class="form-control form-control" required/>
                     <label class="form-label ms-1" for="password">Password</label>
                   </div>
 
@@ -54,7 +54,7 @@
                 <div class="col-md-6 mb-4 pb-2">
 
                   <div class="form-outline">
-                    <input type="email" id="email" class="form-control form-control" required/>
+                    <input type="email" id="email" name="email" class="form-control form-control" required/>
                     <label class="form-label ms-1" for="email">Email</label>
                   </div>
 
@@ -63,13 +63,13 @@
 
                 <div class="col-6">
 
-                  <select class="select form-control" id="city">
+                  <select class="select form-control" id="city" name="city">
 
                     <option value="1">Select city</option>
-                    <option value="2">Lahore</option>
-                    <option value="3">Karachi</option>
-                    <option value="4">Islamabad</option>
-                    <option value="5">Rawalpindi</option>
+                    <option value="Lahore">Lahore</option>
+                    <option value="Karachi">Karachi</option>
+                    <option value="Islamabad">Islamabad</option>
+                    <option value="Rawalpindi">Rawalpindi</option>
                   </select>
                   <label class="form-label select-label ms-2">City</label>
 
@@ -80,7 +80,7 @@
               </div>
 
               <div class="mt-2 pt-2">
-                <input class="  btn btn-secondary blue-button-color" type="submit" value="Submit" />
+                <input class="  btn btn-secondary blue-button-color" type="submit" value="Register" />
               </div>
 
             </form>
