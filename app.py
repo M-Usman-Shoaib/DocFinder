@@ -32,6 +32,12 @@ def doctorRegistration():
     return render_template("doctorRegistration.html")
 
 
+# base page
+@app.route('/')
+def base():
+    return render_template("base.html")
+
+
 if __name__ == '__main__':
     app.run(debug=True)
 
