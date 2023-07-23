@@ -2,7 +2,6 @@ from flask import request, jsonify, Response, session
 from flask_restful import Resource
 from database.models import patients, doctors, appointments
 
-
 class patientAPI(Resource):
     def get(self, data):
         try:
@@ -47,10 +46,10 @@ class patientAPI(Resource):
         except Exception as e:
             return {"message": "Invalid patient ID"}, 400
 
-    def delete(self, data):
+    def delete(self):
         try:
             # Check if the patient record exists
-            patients.objects(id=data).delete()
+            # patients.objects(id=).delete()
             return {"message": "Patient record deleted successfully"}, 200
 
         except Exception as e:
@@ -128,27 +127,80 @@ class searchDoctorsAPI(Resource):
 class appointmentAPI(Resource):
     def get(self, data):
         try:
-            appointments = patients.objects(status=data).to_json()
-            return Response(appointments, mimetype="application/json", status=200)
+            # Retrieve patient_id from the session
+            pid = session.get("patient_id")
+
+            # Retrieve patient using the patient_id
+            patient = patients.objects(id=pid).first()
+            if not patient:
+                return {"message": "Patient not found"}, 404
+
+            p_name = patient.name
+
+            # Query appointments for the given patient name and status (data)
+            appointment_list = appointments.objects(patient_name=p_name, status=data).to_json()
+
+            # Return the appointments as a JSON response
+            return Response(appointment_list, mimetype="application/json", status=200)
+
         except Exception as e:
-            return Response("Error occurred while fetching appointments", status=500, mimetype="application/json")
+            # Return the exception message as a JSON response
+            return {"message": f"Error occurred while fetching appointments: {str(e)}"}, 500
 
     def post(self, data):
         try:
-            data = request.get_json()
-            patient_id = "64bb6b575e730f437ba72647"
-            appointment_date = data.get("appointment_date")
+            data2 = request.get_json()
+            patient_id = session.get('patient_id')
+            appointment_date = data2.get("appointment_date")
             patient = patients.objects.get(id=patient_id)
             doctor = doctors.objects.get(id=data)
             status = "pending"
-            appointment = appointments(patient_name= patient.name, doctor_name=doctor.name,
+            appointment = appointments(patient_name=patient.name, doctor_name=doctor.name,
                                        appointment_date=appointment_date,
                                        status=status).save()
             return {"message": f"Appointment request sent successfully from {patient.name} to {doctor.name}."}, 200
         except Exception as e:
             return {"message": f"Error occurred due to {str(e)}"}, 500
 
+    def delete(self, data):
+        try:
+            # Check if the appointment with the given ID exists in the database
+            appointments.objects(id=data).delete()
+            return {"message": "Appointment deleted successfully."}, 200
 
+        except Exception as e:
+            return {"message": f"Error occurred due to {str(e)}"}, 500
+
+
+
+
+class doctorLoginAPI(Resource):
+    def post(self):
+        try:
+            data = request.get_json()
+            email = data.get('email')
+            password = data.get('password')
+
+            # Use the correct model name (Doctor) and access its manager (objects)
+            login_check = doctors.objects.filter(email=email, password=password).first()
+
+            if login_check:
+                status = login_check.status
+                if status == 'approved':
+                    # Return a JSON response with a success message and redirection URL
+                    return {'message': 'Login successful.', 'redirect': '/doctorMainPage'}, 200
+                elif status == 'rejected':
+                    # Return a JSON response with a rejection message and appropriate status code
+                    return {'message': 'Sorry to inform that, your registration request has been rejected.'}, 403
+                else:
+                    # Return a JSON response with a pending message and appropriate status code
+                    return {'message': 'Your Registration Request is PENDING at the moment.'}, 403
+            else:
+                # Return a JSON response with an account not found message and appropriate status code
+                return {'message': 'No account found with these credentials.'}, 404
+        except Exception as e:
+            # Return a JSON response with an error message and appropriate status code
+            return {'message': f'Error occurred due to {str(e)}'}, 500
 
 def search_doctors(speciality, ratings, city):
     try:

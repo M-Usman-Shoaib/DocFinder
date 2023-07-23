@@ -1,15 +1,17 @@
 from flask import Flask, jsonify, request, render_template, session
 from database import dbinitialization
-from database.models import patients, doctors
+from database.models import patients, doctors, appointments
 from flask_restful import Api
 from resources import routes
-import secrets
 from flask_session import Session
 
 app = Flask(__name__, static_url_path='/static')
 
-secret_key = secrets.token_hex(16)
-app.config['SECRET_KEY'] = secret_key
+app.secret_key="bsjvhusdhg5565645"
+
+app.config["SESSION_TYPE"]="filesystem"
+app.config["SESSION_PERMANENT"]=False
+Session(app)
 
 app.config['DEBUG'] = True
 
@@ -112,7 +114,12 @@ def patientLogin():
             approval_check = patients.objects(email=email, password=password, status='approved').first()
             rejection_check = patients.objects(email=email, password=password, status='rejected').first()
             if approval_check:
+                # Save the patient's ID in the session
+                session["patient_id"] = login_check.id
+
+                # Redirect to the patientMainPage.html
                 return render_template("patientMainPage.html")
+
             elif rejection_check:
                 return {'message': 'Sorry to inform that, your registration request has been rejected.'}, 403
             else:
@@ -123,25 +130,25 @@ def patientLogin():
         return {'message': f'error occurred due to {str(e)}'}, 404
 
 
-@app.route('/doctorLogin', methods=['POST'])
-def doctorLogin():
-    try:
-        email = request.form['email']
-        password = request.form['password']
-        login_check = doctors.objects(email=email, password=password).first()
-        if login_check:
-            approval_check = doctors.objects(email=email, password=password, status='approved').first()
-            rejection_check = doctors.objects(email=email, password=password, status='rejected').first()
-            if approval_check:
-                return render_template("doctorMainPage.html")
-            elif rejection_check:
-                return {'message': 'Sorry to inform that, your registration request has been rejected.'}, 403
-            else:
-                return {'message': 'Your Registration Request is PENDING at the moment.'}, 403
-        else:
-            return {'message': 'No account found with these credentials.'}, 404
-    except Exception as e:
-        return {'message': f'error occurred due to {str(e)}'}, 404
+# @app.route('/doctorLogin', methods=['POST'])
+# def doctorLogin():
+#     try:
+#         email = request.form['email']
+#         password = request.form['password']
+#         login_check = doctors.objects(email=email, password=password).first()
+#         if login_check:
+#             approval_check = doctors.objects(email=email, password=password, status='approved').first()
+#             rejection_check = doctors.objects(email=email, password=password, status='rejected').first()
+#             if approval_check:
+#                 return render_template("doctorMainPage.html")
+#             elif rejection_check:
+#                 return {'message': 'Sorry to inform that, your registration request has been rejected.'}, 403
+#             else:
+#                 return {'message': 'Your Registration Request is PENDING at the moment.'}, 403
+#         else:
+#             return {'message': 'No account found with these credentials.'}, 404
+#     except Exception as e:
+#         return {'message': f'error occurred due to {str(e)}'}, 404
 
 # @app.route('/fetchPatientID')
 # def fetchPatientID():
@@ -154,7 +161,7 @@ def doctorLogin():
 
 @app.route('/pendingPatientAppointments')
 def pendingPatientAppointments():
-    return render_template("displayPendingAppointments.html")
+    return render_template("withdrawPendingAppointments.html")
 
 
 if __name__ == '__main__':
