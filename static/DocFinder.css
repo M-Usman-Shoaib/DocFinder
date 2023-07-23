@@ -9,6 +9,14 @@
 /*blue button colour*/
 .blue-button-color{
     background-color: #006;
+    border-color: #006;
+
+}
+
+/*yellow button colour*/
+.yellow-button-color{
+    background-color: #e18400;
+    border-color: #e18400;
 
 }
 
