@@ -1,6 +1,15 @@
 
 
 
+/*Background*/
+
+.background{
+    background-color: #c0c0c0;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    min-height: 600px;
+}
+
 /*dropdown menu width*/
 .custom-dropdown-menu{
     min-width: 8px;

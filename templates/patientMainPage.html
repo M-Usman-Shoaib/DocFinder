@@ -3,6 +3,14 @@
 {% block title %}title{% endblock %}
 
 {% block content %}
-   <button onclick="location.href='/searchDoctors'">Search Doctors</button>
-    <button onclick="location.href='/'">Delete Account</button>
+
+    <div class="background">
+        <h2 class="text-center pt-2" >Patient's dashboard</h2>
+        <div class="container d-flex pt-5">
+           <button class="ms-2  btn btn-secondary yellow-button-color" onclick="location.href='/searchDoctors'">Search Doctors</button>
+            <button class="ms-2  btn btn-danger" onclick="location.href='/'">Delete Account</button>
+        </div>
+
+    </div>
+
 {% endblock %}
