@@ -60,3 +60,57 @@ h1{
     max-width: 400px; /* Adjust the width as needed */
     /* Add any other custom styles for the container if required */
 }
+
+/* Define CSS styles for the table and its elements */
+.table-wrapper {
+    /* Add any wrapper styles here */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    /* Add any table styles here */
+}
+
+td {
+    border: 1px solid #000000;
+    padding: 8px;
+    font-weight: 500;
+    /* Add any table cell styles here */
+}
+
+th {
+
+    border: 2px solid #000000;
+    padding: 8px;
+    font-weight: 800;
+    /* Add any table header styles here */
+}
+
+
+.approve-button{
+    background-color: #e18400;
+    border-color: #e18400;
+    border-radius: 5px;
+    color: white;
+    margin-left: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+}
+
+.reject-button{
+    background-color: #d32424;
+    border-color: #d32424;
+    border-radius: 5px;
+    color: white;
+    margin-left: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+}
+
+button {
+    /* Add any button styles here */
+
+}
