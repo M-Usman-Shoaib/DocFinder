@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Appointments</title>
+</head>
+<body>
+    <table id="appointmentsTable"></table>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            // Function to fetch patient ID using AJAX
+            function fetchPatientID() {
+                $.ajax({
+                    type: "GET",
+                    url: "/fetchPatientID", // Update with the actual endpoint to fetch patient ID
+                    contentType: "application/json",
+                    success: function(patientId) {
+                        fetchAppointments(patientId);
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Error fetching patient ID: " + xhr.responseText);
+                    }
+                });
+            }
+
+            // Function to fetch pending appointments using AJAX
+            function fetchAppointments(patientId) {
+                $.ajax({
+                    type: "GET",
+                    url: `/appointmentAPI/${patientId}`, // Update with the actual endpoint to fetch pending appointments
+                    contentType: "application/json",
+                    success: function(response) {
+                        displayAppointments(response);
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Error fetching appointments: " + xhr.responseText);
+                    }
+                });
+            }
+
+            // Function to display pending appointments in a table
+            function displayAppointments(appointments) {
+                const table = document.getElementById("appointmentsTable");
+                table.innerHTML = ""; // Clear previous data from the table
+
+                if (appointments.length === 0) {
+                    const row = table.insertRow();
+                    const cell = row.insertCell();
+                    cell.colSpan = 3;
+                    cell.innerHTML = "No pending appointments.";
+                } else {
+                    for (const appointment of appointments) {
+                        const row = table.insertRow();
+                        row.insertCell().textContent = appointment.doctor_name;
+                        row.insertCell().textContent = appointment.patient_name;
+                        row.insertCell().textContent = appointment.status;
+                    }
+                }
+            }
+
+            // Fetch patient ID and then display the pending appointments
+            fetchPatientID();
+        });
+    </script>
+</body>
+</html>
