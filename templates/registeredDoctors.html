@@ -1,11 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Approved Doctors</title>
-</head>
-<body>
-    <table id="doctorTable"></table>
+{% extends "base.html" %}
+
+{% block title %}title{% endblock %}
+
+{% block content %}
+
+        <div class="table-wrapper background pt-5">
+            <h2 class="text-center mb-5 " >Registered Doctors</h2>
+             <table id="doctorTable"></table>
+
+        </div>
+
     <script>
         // Function to fetch doctor records with status: "approved" and display in a table
         function displayApprovedDoctors() {
@@ -21,16 +25,16 @@
                     // Create table header
                     const tableHeader = table.createTHead();
                     const headerRow = tableHeader.insertRow();
-                    headerRow.insertCell().textContent = 'Name';
-                    headerRow.insertCell().textContent = 'Gender';
-                    headerRow.insertCell().textContent = 'Speciality';
-                    headerRow.insertCell().textContent = 'Experience';
-                    headerRow.insertCell().textContent = 'Hospital';
-                    headerRow.insertCell().textContent = 'City';
-                    headerRow.insertCell().textContent = 'Email';
-                    headerRow.insertCell().textContent = 'Phone';
-                    headerRow.insertCell().textContent = 'Ratings';
-                    headerRow.insertCell().textContent = 'Actions';
+                    createHeaderCell(headerRow, 'Name');
+                    createHeaderCell(headerRow, 'Gender');
+                    createHeaderCell(headerRow, 'Speciality');
+                    createHeaderCell(headerRow, 'Experience');
+                    createHeaderCell(headerRow, 'Hospital');
+                    createHeaderCell(headerRow, 'City');
+                    createHeaderCell(headerRow, 'Email');
+                    createHeaderCell(headerRow, 'Phone');
+                    createHeaderCell(headerRow, 'Ratings');
+                    createHeaderCell(headerRow, 'Actions');
 
                     // Create table body
                     const tableBody = table.createTBody();
@@ -50,11 +54,19 @@
                         const actionsCell = row.insertCell();
                         const deleteBtn = document.createElement('button');
                         deleteBtn.textContent = 'Delete';
+                        deleteBtn.classList.add('reject-button');
                         deleteBtn.addEventListener('click', () => handleDelete(doctor._id));
                         actionsCell.appendChild(deleteBtn);
                     });
                 })
                 .catch(error => console.error('Error fetching doctor data:', error));
+        }
+
+        // Function to create a header cell (<th>) with the specified text
+        function createHeaderCell(row, text) {
+            const th = document.createElement('th');
+            th.textContent = text;
+            row.appendChild(th);
         }
 
         // Function to handle the delete action
@@ -81,3 +93,5 @@
     </script>
 </body>
 </html>
+
+{% endblock %}
