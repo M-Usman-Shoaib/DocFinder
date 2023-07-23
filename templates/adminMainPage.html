@@ -1,13 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Admin Portal</title>
-</head>
-<body>
-    <h1>Admin Portal</h1>
-    <button onclick="location.href='/showPendingPatients'">Pending Patients Registration Requests</button>
-    <button onclick="location.href='/showPendingDoctors'">Pending Doctors Registration Requests</button>
-    <button onclick="location.href='/showRegisteredPatients'">Registered Patients</button>
-    <button onclick="location.href='/showRegisteredDoctors'">Registered Doctors</button>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}title{% endblock %}
+
+{% block content %}
+
+    <div class="background">
+        <h2 class="text-center pt-2" >Admin's Dashboard</h2>
+        <div class="container d-flex justify-content-center pt-5">
+             <button class="ms-2  btn btn-secondary yellow-button-color" onclick="location.href='/showPendingPatients'">Pending Patients Requests</button>
+            <button class="ms-2  btn btn-secondary yellow-button-color" onclick="location.href='/showPendingDoctors'">Pending Doctors Requests</button>
+            <button class="ms-2  btn btn-secondary yellow-button-color" onclick="location.href='/showRegisteredPatients'">Registered Patients</button>
+            <button class="ms-2  btn btn-secondary yellow-button-color" onclick="location.href='/showRegisteredDoctors'">Registered Doctors</button>
+
+        </div>
+
+    </div>
+
+{% endblock %}
