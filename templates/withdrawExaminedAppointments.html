@@ -8,7 +8,6 @@
     <table border="1" id="results">
         <thead>
             <tr>
-                <!-- Remove the <th> for Patient Name -->
                 <th>Doctor Name</th>
                 <th>Appointment Date</th>
                 <th>Status</th>
@@ -43,6 +42,21 @@
             return `${month}/${day}/${year}`;
         }
 
+        function deleteAppointment(appointmentId) {
+            $.ajax({
+                type: "DELETE",
+                url: "/appointmentAPI/" + appointmentId,
+                success: function (response) {
+                    alert("Appointment deleted successfully!");
+                    // You may choose to reload the results after deletion
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    alert("Error deleting appointment: " + xhr.responseText);
+                }
+            });
+        }
+
         function displayResults(appointments) {
             const resultsTbody = $("#results tbody");
             resultsTbody.empty(); // Clear previous results
@@ -52,40 +66,20 @@
             } else {
                 for (const appointment of appointments) {
                     const row = $("<tr></tr>");
-                    // Remove the <td> for Patient Name
                     row.append("<td>" + appointment.doctor_name + "</td>");
                     row.append("<td>" + formatDate(appointment.appointment_date.$date) + "</td>");
                     row.append("<td>" + appointment.status + "</td>");
-                    row.append("<td><button onclick=\"withdrawAppointment('" + appointment._id.$oid + "')\">Withdraw</button></td>");
+
+                    // Add the "Withdraw" button with the corresponding appointment ID
+                    const withdrawButton = $("<button>Withdraw</button>");
+                    withdrawButton.on("click", function () {
+                        deleteAppointment(appointment._id.$oid);
+                    });
+                    row.append($("<td></td>").append(withdrawButton));
+
                     resultsTbody.append(row);
                 }
             }
-        }
-
-        function withdrawAppointment(appointmentId) {
-            $.ajax({
-                type: "DELETE",
-                url: "/appointmentAPI/" + appointmentId,
-                contentType: "application/json",
-                success: function (response) {
-                    alert(response.message);
-                    // Refresh the table after successful withdrawal
-                    $.ajax({
-                        type: "GET",
-                        url: "/appointmentAPI/examined",
-                        contentType: "application/json",
-                        success: function (response) {
-                            displayResults(response);
-                        },
-                        error: function (xhr, status, error) {
-                            alert("Error: " + xhr.responseText);
-                        }
-                    });
-                },
-                error: function (xhr, status, error) {
-                    alert("Error: " + xhr.responseText);
-                }
-            });
         }
     </script>
 </body>

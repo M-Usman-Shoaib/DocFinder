@@ -1,6 +1,7 @@
 from flask import request, jsonify, Response, session
 from flask_restful import Resource
 from database.models import patients, doctors, appointments
+from bson import ObjectId
 
 class patientAPI(Resource):
     def get(self, data):
@@ -210,6 +211,7 @@ class doctorsAPI(Resource):
             return {"message": "Account deleted successfully"}, 200
         except Exception as e:
             return {"message": f"Error occurred: {str(e)}"}, 500
+
 
 class appointmentAPI2(Resource):
     def get(self, data):
