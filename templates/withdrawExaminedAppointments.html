@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Appointment Status</title>
-</head>
-<body>
-    <h1>Appointment Status - Examined</h1>
-    <table border="1" id="results">
+{% extends "base.html" %}
+
+{% block title %}title{% endblock %}
+
+{% block content %}
+
+    <div class="background">
+    <h2 class="text-center"  >Examined Appointments</h2>
+    <table class="mt-5" border="1" id="results">
         <thead>
             <tr>
                 <th>Doctor Name</th>
@@ -16,7 +17,7 @@
         </thead>
         <tbody></tbody>
     </table>
-
+    </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -71,7 +72,7 @@
                     row.append("<td>" + appointment.status + "</td>");
 
                     // Add the "Withdraw" button with the corresponding appointment ID
-                    const withdrawButton = $("<button>Withdraw</button>");
+                    const withdrawButton = $("<button class='reject-button' >Withdraw</button>");
                     withdrawButton.on("click", function () {
                         deleteAppointment(appointment._id.$oid);
                     });
@@ -82,5 +83,6 @@
             }
         }
     </script>
-</body>
-</html>
+
+{% endblock %}
+
