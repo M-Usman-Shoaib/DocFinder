@@ -163,6 +163,10 @@ def patientLogin():
 def pendingPatientAppointments():
     return render_template("withdrawPendingAppointments.html")
 
+@app.route('/pendingAppointments')
+def pendingAppointments():
+    return render_template("pendingAppointments.html")
+
 
 if __name__ == '__main__':
     app.run(debug=True)

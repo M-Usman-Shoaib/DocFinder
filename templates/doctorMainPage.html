@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Doctor Main page</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}title{% endblock %}
+
+{% block content %}
+
+    <div class="background">
+        <h2 class="text-center pt-2" >Doctor's dashboard</h2>
+        <div class="container d-flex justify-content-center pt-5">
+           <button class="ms-2  btn btn-secondary yellow-button-color" onclick="location.href='/pendingAppointments'">Pending Appointments</button>
+
+            <button class="ms-2  btn btn-danger" >Delete Account</button>
+        </div>
+
+    </div>
+
+{% endblock %}

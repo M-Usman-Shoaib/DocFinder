@@ -172,8 +172,6 @@ class appointmentAPI(Resource):
             return {"message": f"Error occurred due to {str(e)}"}, 500
 
 
-
-
 class doctorLoginAPI(Resource):
     def post(self):
         try:
@@ -187,6 +185,7 @@ class doctorLoginAPI(Resource):
             if login_check:
                 status = login_check.status
                 if status == 'approved':
+                    session["doctor_id"] = login_check.id
                     # Return a JSON response with a success message and redirection URL
                     return {'message': 'Login successful.', 'redirect': '/doctorMainPage'}, 200
                 elif status == 'rejected':
@@ -201,6 +200,42 @@ class doctorLoginAPI(Resource):
         except Exception as e:
             # Return a JSON response with an error message and appropriate status code
             return {'message': f'Error occurred due to {str(e)}'}, 500
+
+class appointmentAPI2(Resource):
+    def get(self, data):
+        try:
+            # Retrieve patient_id from the session
+            d_id = session.get("doctor_id")
+
+            # Retrieve patient using the patient_id
+            doctor = doctors.objects(id=d_id).first()
+            if not doctor:
+                return {"message": "Doctor not found"}, 404
+
+            d_name = doctor.name
+
+            # Query appointments for the given patient name and status (data)
+            appointment_list = appointments.objects(doctor_name=d_name, status=data).to_json()
+
+            # Return the appointments as a JSON response
+            return Response(appointment_list, mimetype="application/json", status=200)
+
+        except Exception as e:
+            # Return the exception message as a JSON response
+            return {"message": f"Error occurred while fetching appointments: {str(e)}"}, 500
+
+    def put(self, data):
+        try:
+            ID = data
+            doctorID = session.get("doctor_id")
+            # data3 = request.get_json()
+            doctor = doctors.objects(id=doctorID).first()
+            appointments.objects.update(id=ID, doctor_name=doctor.name)
+            return {"message": f"Appointment is successfully updated."}, 200
+
+        except Exception as e:
+            return {"message": f"Error occurred due to {str(e)}"}, 500
+
 
 def search_doctors(speciality, ratings, city):
     try:
