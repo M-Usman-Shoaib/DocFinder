@@ -8,10 +8,32 @@
         <h2 class="text-center pt-2" >Doctor's dashboard</h2>
         <div class="container d-flex justify-content-center pt-5">
            <button class="ms-2  btn btn-secondary yellow-button-color" onclick="location.href='/pendingAppointments'">Pending Appointments</button>
+           <button class="ms-2  btn btn-secondary yellow-button-color" onclick="location.href='/approvedAppointments'">Approved Appointments</button>
+           <button class="ms-2  btn btn-secondary yellow-button-color" onclick="location.href='/examinedAppointments'">Examined Patients</button>
 
-            <button class="ms-2  btn btn-danger" >Delete Account</button>
+            <button class="ms-2  btn btn-danger" onclick="deleteAccount()">Delete Account</button>
         </div>
 
     </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function deleteAccount() {
+            if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "/doctorAPI",
+                    contentType: "application/json",
+                    success: function (response) {
+                        alert(response.message);
+                        // Redirect to the home page or any other page as needed
+                        window.location.href = "/";
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Error: " + xhr.responseText);
+                    }
+                });
+            }
+        }
+    </script>
 
 {% endblock %}

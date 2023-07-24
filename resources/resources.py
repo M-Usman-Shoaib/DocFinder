@@ -48,9 +48,10 @@ class patientAPI(Resource):
 
     def delete(self):
         try:
+            p_id = session.get("patient_id")
             # Check if the patient record exists
-            # patients.objects(id=).delete()
-            return {"message": "Patient record deleted successfully"}, 200
+            patients.objects(id=p_id).delete()
+            return {"message": "Account deleted successfully"}, 200
 
         except Exception as e:
             return {"message": f"Error occurred: {str(e)}"}, 500
@@ -102,11 +103,12 @@ class doctorAPI(Resource):
         except Exception as e:
             return {"message": "Invalid doctor ID"}, 400
 
-    def delete(self, data):
+    def delete(self):
         try:
+            d_id = session.get("doctor_id")
             # Check if the patient record exists
-            doctors.objects(id=data).delete()
-            return {"message": "Patient record deleted successfully"}, 200
+            doctors.objects(id=d_id).delete()
+            return {"message": "Account deleted successfully"}, 200
         except Exception as e:
             return {"message": f"Error occurred: {str(e)}"}, 500
 
@@ -228,9 +230,9 @@ class appointmentAPI2(Resource):
         try:
             ID = data
             doctorID = session.get("doctor_id")
-            # data3 = request.get_json()
+            data3 = request.get_json()
             doctor = doctors.objects(id=doctorID).first()
-            appointments.objects.update(id=ID, doctor_name=doctor.name)
+            appointments.objects(id=ID, doctor_name=doctor.name).update(status=data3['status'])
             return {"message": f"Appointment is successfully updated."}, 200
 
         except Exception as e:

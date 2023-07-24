@@ -163,9 +163,31 @@ def patientLogin():
 def pendingPatientAppointments():
     return render_template("withdrawPendingAppointments.html")
 
+
+@app.route('/approvedPatientAppointments')
+def approvedPatientAppointments():
+    return render_template("withdrawApprovedAppointments.html")
+
+
+@app.route('/examinedPatientAppointments')
+def examinedPatientAppointments():
+    return render_template("withdrawExaminedAppointments.html")
+
+
 @app.route('/pendingAppointments')
 def pendingAppointments():
     return render_template("pendingAppointments.html")
+
+
+@app.route('/approvedAppointments')
+def approvedAppointments():
+    return render_template("approvedAppointments.html")
+
+
+@app.route('/examinedAppointments')
+def examinedAppointments():
+    return render_template("examinedAppointments.html")
+
 
 
 if __name__ == '__main__':
