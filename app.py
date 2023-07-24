@@ -56,22 +56,34 @@ def admin():
 
 @app.route('/patientMainPage')
 def patient():
-   return render_template("patientMainPage.html")
+   if session:
+       return render_template("patientMainPage.html")
+   else:
+       return render_template("homePage.html")
 
 
 @app.route('/doctorMainPage')
 def doctors():
-    return render_template("doctorMainPage.html")
+    if session:
+        return render_template("doctorMainPage.html")
+    else:
+        return render_template("homePage.html")
 
 
 @app.route('/searchDoctors')
 def searchDoctors():
-    return render_template("searchDoctors.html")
+    if session:
+        return render_template("searchDoctors.html")
+    else:
+        return render_template("homePage.html")
 
 
 @app.route('/doctorRecords')
 def doctorRecords():
-    return render_template("doctorsRecords.html")
+    if session:
+        return render_template("doctorsRecords.html")
+    else:
+        return render_template("homePage.html")
 
 
 @app.route('/showPendingPatients')
@@ -79,19 +91,21 @@ def showPatients():
     return render_template("displayPendingPatients.html")
 
 
+
 @app.route('/showPendingDoctors')
 def showDoctors():
-    return render_template("displayPendingDoctors.html")
+        return render_template("displayPendingDoctors.html")
 
 
 @app.route('/showRegisteredPatients')
 def showRegisteredPatients():
-    return render_template("registeredPatients.html")
+        return render_template("registeredPatients.html")
 
 
 @app.route('/showRegisteredDoctors')
 def showRegisteredDoctors():
-    return render_template("registeredDoctors.html")
+        return render_template("registeredDoctors.html")
+
 
 
 @app.route('/patientlogin')
@@ -137,27 +151,42 @@ def pendingPatientAppointments():
 
 @app.route('/approvedPatientAppointments')
 def approvedPatientAppointments():
-    return render_template("withdrawApprovedAppointments.html")
+    if session:
+        return render_template("withdrawApprovedAppointments.html")
+    else:
+        return render_template("homePage.html")
 
 
 @app.route('/examinedPatientAppointments')
 def examinedPatientAppointments():
-    return render_template("withdrawExaminedAppointments.html")
+    if session:
+        return render_template("withdrawExaminedAppointments.html")
+    else:
+        return render_template("homePage.html")
 
 
 @app.route('/pendingAppointments')
 def pendingAppointments():
-    return render_template("pendingAppointments.html")
+    if session:
+        return render_template("pendingAppointments.html")
+    else:
+        return render_template("homePage.html")
 
 
 @app.route('/approvedAppointments')
 def approvedAppointments():
-    return render_template("approvedAppointments.html")
+    if session:
+        return render_template("approvedAppointments.html")
+    else:
+        return render_template("homePage.html")
 
 
 @app.route('/examinedAppointments')
 def examinedAppointments():
-    return render_template("examinedAppointments.html")
+    if session:
+        return render_template("examinedAppointments.html")
+    else:
+        return render_template("homePage.html")
 
 
 @app.route('/deletePatient/<id>', methods=['DELETE'])
@@ -177,6 +206,7 @@ def logout():
         return render_template("homePage.html")
     except Exception as e:
         pass
+
 
 if __name__ == '__main__':
     app.run(debug=True)
