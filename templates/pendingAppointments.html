@@ -5,8 +5,8 @@
 {% block content %}
 
     <div class="background">
-    <h2> Appointment Status - Pending</h2>
-    <table border="1" id="results">
+    <h2 class="text-center" >Pending Appointments</h2>
+    <table class="mt-5" border="1" id="results">
         <thead>
             <tr>
                 <th>Patient Name</th>
@@ -55,7 +55,7 @@
                 row.append("<td>" + appointment.patient_name + "</td>");
                 row.append("<td>" + formatDate(appointment.appointment_date.$date) + "</td>");
                 row.append("<td>" + appointment.status + "</td>");
-                row.append("<td><button onclick=\"changeStatus('" + appointment._id.$oid + "', 'approved')\">Approve</button><button onclick=\"changeStatus('" + appointment._id.$oid + "', 'rejected')\">Reject</button></td>");
+                row.append("<td><button class='approve-button' onclick=\"changeStatus('" + appointment._id.$oid + "', 'approved')\">Approve</button><button class='reject-button' onclick=\"changeStatus('" + appointment._id.$oid + "', 'rejected')\">Reject</button></td>");
                 resultsTbody.append(row);
             }
         }
