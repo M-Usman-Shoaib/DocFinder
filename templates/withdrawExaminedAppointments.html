@@ -8,7 +8,7 @@
     <table border="1" id="results">
         <thead>
             <tr>
-                <th>Patient Name</th>
+                <!-- Remove the <th> for Patient Name -->
                 <th>Doctor Name</th>
                 <th>Appointment Date</th>
                 <th>Status</th>
@@ -18,76 +18,75 @@
         <tbody></tbody>
     </table>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   <script>
-    $(document).ready(function () {
-        // Call the API with "pending" status
-        $.ajax({
-            type: "GET",
-            url: "/appointmentAPI/examined",
-            contentType: "application/json",
-            success: function (response) {
-                displayResults(response);
-            },
-            error: function (xhr, status, error) {
-                alert("Error: " + xhr.responseText);
-            }
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Call the API with "examined" status
+            $.ajax({
+                type: "GET",
+                url: "/appointmentAPI/examined",
+                contentType: "application/json",
+                success: function (response) {
+                    displayResults(response);
+                },
+                error: function (xhr, status, error) {
+                    alert("Error: " + xhr.responseText);
+                }
+            });
         });
-    });
 
-    function formatDate(dateString) {
-        const dateObj = new Date(dateString);
-        const year = dateObj.getFullYear();
-        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-        const day = String(dateObj.getDate()).padStart(2, '0');
-        return `${month}/${day}/${year}`;
-    }
+        function formatDate(dateString) {
+            const dateObj = new Date(dateString);
+            const year = dateObj.getFullYear();
+            const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const day = String(dateObj.getDate()).padStart(2, '0');
+            return `${month}/${day}/${year}`;
+        }
 
-    function displayResults(appointments) {
-        const resultsTbody = $("#results tbody");
-        resultsTbody.empty(); // Clear previous results
+        function displayResults(appointments) {
+            const resultsTbody = $("#results tbody");
+            resultsTbody.empty(); // Clear previous results
 
-        if (appointments.length === 0) {
-            resultsTbody.append("<tr><td colspan='4'>No examined appointments found.</td></tr>");
-        } else {
-            for (const appointment of appointments) {
-                const row = $("<tr></tr>");
-                row.append("<td>" + appointment.patient_name + "</td>");
-                row.append("<td>" + appointment.doctor_name + "</td>");
-                row.append("<td>" + formatDate(appointment.appointment_date.$date) + "</td>");
-                row.append("<td>" + appointment.status + "</td>");
-                row.append("<td><button onclick=\"withdrawAppointment('" + appointment._id.$oid + "')\">Withdraw</button></td>");
-                resultsTbody.append(row);
+            if (appointments.length === 0) {
+                resultsTbody.append("<tr><td colspan='4'>No examined appointments found.</td></tr>");
+            } else {
+                for (const appointment of appointments) {
+                    const row = $("<tr></tr>");
+                    // Remove the <td> for Patient Name
+                    row.append("<td>" + appointment.doctor_name + "</td>");
+                    row.append("<td>" + formatDate(appointment.appointment_date.$date) + "</td>");
+                    row.append("<td>" + appointment.status + "</td>");
+                    row.append("<td><button onclick=\"withdrawAppointment('" + appointment._id.$oid + "')\">Withdraw</button></td>");
+                    resultsTbody.append(row);
+                }
             }
         }
-    }
 
-    function withdrawAppointment(appointmentId) {
-        $.ajax({
-            type: "DELETE",
-            url: "/appointmentAPI/" + appointmentId,
-            contentType: "application/json",
-            success: function (response) {
-                alert(response.message);
-                // Refresh the table after successful withdrawal
-                $.ajax({
-                    type: "GET",
-                    url: "/appointmentAPI/examined",
-                    contentType: "application/json",
-                    success: function (response) {
-                        displayResults(response);
-                    },
-                    error: function (xhr, status, error) {
-                        alert("Error: " + xhr.responseText);
-                    }
-                });
-            },
-            error: function (xhr, status, error) {
-                alert("Error: " + xhr.responseText);
-            }
-        });
-    }
-</script>
-
+        function withdrawAppointment(appointmentId) {
+            $.ajax({
+                type: "DELETE",
+                url: "/appointmentAPI/" + appointmentId,
+                contentType: "application/json",
+                success: function (response) {
+                    alert(response.message);
+                    // Refresh the table after successful withdrawal
+                    $.ajax({
+                        type: "GET",
+                        url: "/appointmentAPI/examined",
+                        contentType: "application/json",
+                        success: function (response) {
+                            displayResults(response);
+                        },
+                        error: function (xhr, status, error) {
+                            alert("Error: " + xhr.responseText);
+                        }
+                    });
+                },
+                error: function (xhr, status, error) {
+                    alert("Error: " + xhr.responseText);
+                }
+            });
+        }
+    </script>
 </body>
 </html>
