@@ -5,7 +5,7 @@
 {% block content %}
 
      <div class="background">
-    <h2  class="text-center" >Appointment Status - Pending</h2>
+    <h2  class="text-center" >Pending Appointments</h2>
     <table class="mt-5" border="1" id="results">
         <thead>
             <tr>
@@ -57,7 +57,7 @@
                     row.append("<td>" + appointment.doctor_name + "</td>");
                     row.append("<td>" + formatDate(appointment.appointment_date.$date) + "</td>");
                     row.append("<td>" + appointment.status + "</td>");
-                    row.append("<td><button onclick=\"withdrawAppointment('" + appointment._id.$oid + "')\">Withdraw</button></td>");
+                    row.append("<td><button class='reject-button' onclick=\"withdrawAppointment('" + appointment._id.$oid + "')\">Withdraw</button></td>");
                     resultsTbody.append(row);
                 }
             }
