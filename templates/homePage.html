@@ -5,8 +5,105 @@
 {% block content %}
    <div style="background-image: url('{{ url_for('static', filename='header-bg.jpg') }}'); background-size: cover; background-position: center; min-height: 550px">
         <div class="container">
+             <h1 class="text-center pt-5">Welcome to <span class="yellow-colour" >Doc</span><span class="yellow-colour" >Finder</span></h1>
 
-            <h1 class="text-center pt-5">Find and book the <span class="yellow-colour">best doctors</span> near you</h1>
+             <div class="row align-items-center">
+                <div class="col-1"></div>
+                <div class="col-10">
+                    <h4 class="mt-5 mx-5">
+                        Having trouble finding a Doctor near you and booking an appointment?
+                    </h4>
+                    <br>
+                    <h5 class="mt-2 mx-5">
+                        Register as a patient or a doctor to get started:
+                        <span class="dropdown show me-2">
+                            <a class="btn btn-secondary yellow-button-color" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Register
+                            </a>
+
+                            <div class="dropdown-menu custom-dropdown-menu me-2" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="/patientRegistration">Patient</a>
+                                <a class="dropdown-item" href="/doctorRegistration">Doctor</a>
+                            </div>
+                        </span>
+                    </h5>
+                </div>
+                <div class="col-1"></div>
+            </div>
+
+{#            <h1 class="text-center pt-5">Find and book the <span class="yellow-colour">Best Doctors</span> near you</h1>#}
+
+{#            <section class="vh-75  gradient-custom " >#}
+{#  <div class="container py-5 h-75">#}
+{#    <div class="row justify-content-center align-items-center h-100">#}
+{#      <div class="col-12 col-lg-9 col-xl-7">#}
+{#        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">#}
+{#          <div class="card-body p-4 p-md-5">#}
+{#            <h3 class="mb-2 pb-2 pb-md-0 mb-md-5 text-center">Search Doctor</h3>#}
+{#            <form  class="pt-2">#}
+{##}
+{#             <div class="row">#}
+{#                <div class="col-md-6 mb-2 pb-2">#}
+{#                    <div class="col-10">#}
+{##}
+{#                  <select class="select form-control" id="specialty" name="specialty" >#}
+{#                     <option value="">-- Any --</option>#}
+{#                    <option value="Nutritionist">Nutritionist</option>#}
+{#                    <option value="Gynecologist">Gynecologist</option>#}
+{#                    <option value="Gastroenterologist">Gastroenterologist</option>#}
+{#                    <option value="Skin-specialist">Skin Specialist</option>#}
+{#                    <option value="Eye-specialist">Eye Specialist</option>#}
+{#                    <option value="Orthopedic Surgeon">Orthopedic Surgeon</option>#}
+{#                    <option value="Endocrinologists">Endocrinologists</option>#}
+{#                    <option value="General Surgeon">General Surgeon</option>#}
+{#            <!-- Add other specialty options here -->#}
+{#                  </select>#}
+{#                  <label class="form-label select-label ms-2">Specialty</label>#}
+{##}
+{#                </div>#}
+{##}
+{##}
+{##}
+{#                </div>#}
+{#                <div class="col-md-6 mb-2 pb-2">#}
+{##}
+{#                <div class="col-10">#}
+{##}
+{#                  <select class="select form-control" id="city" name="city" >#}
+{#                      <option value="">-- Any --</option>#}
+{#                    <option value="Karachi">Karachi</option>#}
+{#                    <option value="Lahore">Lahore</option>#}
+{#                    <option value="Islamabad">Islamabad</option>#}
+{#                    <option value="Rawalpindi">Rawalpindi</option>#}
+{#                    <option value="Faisalabad">Faisalabad</option>#}
+{#                    <option value="Multan">Multan</option>#}
+{#                    <option value="Hyderabad">Hyderabad</option>#}
+{#                    <option value="Peshawar">Peshawar</option>#}
+{#                    <option value="Quetta">Quetta</option>#}
+{#                    <option value="Gujranwala">Gujranwala</option>#}
+{#                     <!-- Add other city options here -->#}
+{#                  </select>#}
+{#                  <label class="form-label select-label ms-2">City</label>#}
+{##}
+{#                </div>#}
+{##}
+{#                </div>#}
+{##}
+{#              </div>#}
+{##}
+{#              <div class="mt-1 pt-1">#}
+{#                <button class="btn btn-secondary yellow-button-color" type="button" onclick="searchDoctors()">Search</button>#}
+{#              </div>#}
+{##}
+{#            </form>#}
+{##}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
+{#</section>#}
+
 
         </div>
     </div>

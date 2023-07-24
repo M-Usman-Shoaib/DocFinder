@@ -10,6 +10,14 @@
     min-height: 600px;
 }
 
+h4{
+    color: white;
+}
+
+h5{
+      color: white;
+}
+
 /*dropdown menu width*/
 .custom-dropdown-menu{
     min-width: 8px;
@@ -49,10 +57,13 @@
 /*text weight in navbar*/
 .nav-text{
     font-weight: 600;
+
 }
 
 h1{
     color: white;
+    font-size: xxx-large;
+    font-weight: bolder;
 }
 
 /* Custom CSS for form*/
