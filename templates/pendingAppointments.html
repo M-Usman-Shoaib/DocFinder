@@ -9,7 +9,6 @@
         <thead>
             <tr>
                 <th>Patient Name</th>
-                <th>Doctor Name</th>
                 <th>Appointment Date</th>
                 <th>Status</th>
                 <th>Action</th>
@@ -48,12 +47,11 @@
         resultsTbody.empty(); // Clear previous results
 
         if (appointments.length === 0) {
-            resultsTbody.append("<tr><td colspan='5'>No pending appointments found.</td></tr>");
+            resultsTbody.append("<tr><td colspan='4'>No pending appointments found.</td></tr>");
         } else {
             for (const appointment of appointments) {
                 const row = $("<tr></tr>");
                 row.append("<td>" + appointment.patient_name + "</td>");
-                row.append("<td>" + appointment.doctor_name + "</td>");
                 row.append("<td>" + formatDate(appointment.appointment_date.$date) + "</td>");
                 row.append("<td>" + appointment.status + "</td>");
                 row.append("<td><button onclick=\"changeStatus('" + appointment._id.$oid + "', 'approved')\">Approve</button><button onclick=\"changeStatus('" + appointment._id.$oid + "', 'rejected')\">Reject</button></td>");

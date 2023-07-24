@@ -9,7 +9,6 @@
         <thead>
             <tr>
                 <th>Patient Name</th>
-                <th>Doctor Name</th>
                 <th>Appointment Date</th>
                 <th>Status</th>
             </tr>
@@ -17,7 +16,7 @@
         <tbody></tbody>
     </table>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
    <script>
     $(document).ready(function () {
         // Call the API with "examined" status
@@ -47,12 +46,11 @@
         resultsTbody.empty(); // Clear previous results
 
         if (appointments.length === 0) {
-            resultsTbody.append("<tr><td colspan='4'>No examined appointments found.</td></tr>");
+            resultsTbody.append("<tr><td colspan='3'>No examined appointments found.</td></tr>");
         } else {
             for (const appointment of appointments) {
                 const row = $("<tr></tr>");
                 row.append("<td>" + appointment.patient_name + "</td>");
-                row.append("<td>" + appointment.doctor_name + "</td>");
                 row.append("<td>" + formatDate(appointment.appointment_date.$date) + "</td>");
                 row.append("<td>" + appointment.status + "</td>");
                 resultsTbody.append(row);

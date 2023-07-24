@@ -78,7 +78,7 @@
             }
 
             // Replace '/doctorAPI/' + doctorId with the actual API endpoint to delete the doctor record
-            fetch('/doctorAPI/' + encodeURIComponent(doctorId), { method: 'DELETE' })
+            fetch('/doctorLogin/' + encodeURIComponent(doctorId), { method: 'DELETE' })
                 .then(response => response.json())
                 .then(data => {
                     console.log('Doctor record deleted:', data);

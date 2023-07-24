@@ -6,7 +6,7 @@ def initialize_routes(api):
     api.add_resource(searchDoctorsAPI, '/doctors/search')
     api.add_resource(appointmentAPI, '/appointmentAPI/<data>')
     api.add_resource(appointmentAPI2, '/appointmentAPI2/<data>')
-    api.add_resource(doctorLoginAPI, '/doctorLogin')
+    api.add_resource(doctorsAPI, '/doctorLogin', '/doctorLogin/<d_id>')
 
 
 

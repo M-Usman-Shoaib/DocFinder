@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, render_template, session
 from database import dbinitialization
-from database.models import patients, doctors, appointments
+from database.models import *
 from flask_restful import Api
 from resources import routes
 from flask_session import Session
@@ -130,35 +130,6 @@ def patientLogin():
         return {'message': f'error occurred due to {str(e)}'}, 404
 
 
-# @app.route('/doctorLogin', methods=['POST'])
-# def doctorLogin():
-#     try:
-#         email = request.form['email']
-#         password = request.form['password']
-#         login_check = doctors.objects(email=email, password=password).first()
-#         if login_check:
-#             approval_check = doctors.objects(email=email, password=password, status='approved').first()
-#             rejection_check = doctors.objects(email=email, password=password, status='rejected').first()
-#             if approval_check:
-#                 return render_template("doctorMainPage.html")
-#             elif rejection_check:
-#                 return {'message': 'Sorry to inform that, your registration request has been rejected.'}, 403
-#             else:
-#                 return {'message': 'Your Registration Request is PENDING at the moment.'}, 403
-#         else:
-#             return {'message': 'No account found with these credentials.'}, 404
-#     except Exception as e:
-#         return {'message': f'error occurred due to {str(e)}'}, 404
-
-# @app.route('/fetchPatientID')
-# def fetchPatientID():
-#     patient_id = session.get("patient_id")
-#     if patient_id is not None:
-#         return jsonify(patient_id)
-#     else:
-#         return {'message': 'Patient ID not found in the session.'}, 404
-
-
 @app.route('/pendingPatientAppointments')
 def pendingPatientAppointments():
     return render_template("withdrawPendingAppointments.html")
@@ -188,6 +159,15 @@ def approvedAppointments():
 def examinedAppointments():
     return render_template("examinedAppointments.html")
 
+
+@app.route('/deletePatient/<id>', methods=['DELETE'])
+def deletePatient(id):
+    try:
+        # Check if the patient record exists
+        patients.objects(id=id).delete()
+        return {"message": "Account deleted successfully"}, 200
+    except Exception as e:
+        return {"message": f"Error occurred: {str(e)}"}, 500
 
 
 if __name__ == '__main__':

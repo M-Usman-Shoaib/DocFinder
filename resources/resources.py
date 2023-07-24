@@ -174,7 +174,7 @@ class appointmentAPI(Resource):
             return {"message": f"Error occurred due to {str(e)}"}, 500
 
 
-class doctorLoginAPI(Resource):
+class doctorsAPI(Resource):
     def post(self):
         try:
             data = request.get_json()
@@ -202,6 +202,14 @@ class doctorLoginAPI(Resource):
         except Exception as e:
             # Return a JSON response with an error message and appropriate status code
             return {'message': f'Error occurred due to {str(e)}'}, 500
+
+    def delete(self, d_id):
+        try:
+            # Check if the patient record exists
+            doctors.objects(id=d_id).delete()
+            return {"message": "Account deleted successfully"}, 200
+        except Exception as e:
+            return {"message": f"Error occurred: {str(e)}"}, 500
 
 class appointmentAPI2(Resource):
     def get(self, data):

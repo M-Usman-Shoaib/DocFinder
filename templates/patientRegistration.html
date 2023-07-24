@@ -10,7 +10,7 @@
         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
           <div class="card-body p-4 p-md-5">
             <h3 class="mb-2 pb-2 pb-md-0 mb-md-5">Patient Registration Form</h3>
-            <form  method="post" action="/patientAPI" >
+            <form  method="post" action="/patientAPI" onsubmit="return validateForm()">
 
               <div class="row">
                 <div class="col-md-6 mb-2">
@@ -63,13 +63,18 @@
 
                 <div class="col-6">
 
-                  <select class="select form-control" id="city" name="city">
-
-                    <option value="1">Select city</option>
-                    <option value="Lahore">Lahore</option>
+                  <select class="select form-control" id="city" name="city" required>
+                    <option value="" selected disabled>Select city</option>
                     <option value="Karachi">Karachi</option>
+                    <option value="Lahore">Lahore</option>
                     <option value="Islamabad">Islamabad</option>
                     <option value="Rawalpindi">Rawalpindi</option>
+                    <option value="Faisalabad">Faisalabad</option>
+                    <option value="Multan">Multan</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Peshawar">Peshawar</option>
+                    <option value="Quetta">Quetta</option>
+                    <option value="Gujranwala">Gujranwala</option>
                   </select>
                   <label class="form-label select-label ms-2">City</label>
 
@@ -80,7 +85,7 @@
               </div>
 
               <div class="mt-1 pt-1">
-                <input class="  btn btn-secondary blue-button-color" type="submit" value="Register" />
+                <input class="btn btn-secondary blue-button-color" type="submit" value="Register" />
               </div>
 
             </form>
@@ -93,4 +98,90 @@
   </div>
 </section>
 </section>
+
+<script>
+  function validateForm() {
+    // Name validation
+    var name = document.getElementById("name").value;
+    if (name.trim() === "" || name.length > 30) {
+      alert("Please enter a valid name (max 30 characters).");
+      return false;
+    }
+
+    // Age validation
+    var age = parseInt(document.getElementById("age").value);
+    if (isNaN(age) || age < 18) {
+      alert("Please enter a valid age (must be an integer and at least 18 years old).");
+      return false;
+    }
+
+    // Phone number validation
+    var phone_no = document.getElementById("phone_no").value;
+    if (phone_no.length !== 11 || isNaN(phone_no)) {
+      alert("Please enter a valid 11-digit phone number.");
+      return false;
+    }
+
+    // Password validation
+    var password = document.getElementById("password").value;
+    if (!/^\d{1,8}$/.test(password)) {
+      alert("Password must contain all digits and not more than 8 digits.");
+      return false;
+    }
+
+     // Email validation
+    var email = document.getElementById("email").value;
+    if (!isValidEmail(email)) {
+      alert("Please enter a valid email address.");
+      return false;
+    }
+
+     // City validation
+    var city = document.getElementById("city").value;
+    if (city === "") {
+      alert("Please select a city from the dropdown list.");
+      return false;
+    }
+
+    return true;
+  }
+
+    function isValidEmail(email) {
+    // Regular expression to check email format
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+   async function submitForm() {
+    if (validateForm()) {
+      const form = document.querySelector('form');
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch("/patientAPI", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          alert(data.message); // Display API response message in a pop-up
+        } else {
+          alert("Error: Unable to submit the form.");
+        }
+      } catch (error) {
+        alert("Error: " + error.message);
+      }
+    }
+  }
+
+  // Attach the submitForm function to the form submission event
+  const form = document.querySelector('form');
+  form.addEventListener("submit", (event) => {
+    event.preventDefault(); // Prevent the default form submission
+    submitForm(); // Call the custom form submission function
+  });
+
+  // Function to handle form submission
+</script>
 {% endblock %}
