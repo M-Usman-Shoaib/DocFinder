@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Appointment Status</title>
-</head>
-<body>
-    <h1>Appointment Status - Approved</h1>
-    <table border="1" id="results">
+{% extends "base.html" %}
+
+{% block title %}title{% endblock %}
+
+{% block content %}
+
+    <div class="background">
+    <h2 class="text-center"  >Approved Appointments</h2>
+    <table class="mt-5" border="1" id="results">
         <thead>
             <tr>
                 <th>Patient Name</th>
@@ -16,7 +17,7 @@
         </thead>
         <tbody></tbody>
     </table>
-
+    </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
    <script>
     $(document).ready(function () {
@@ -54,7 +55,7 @@
                 row.append("<td>" + appointment.patient_name + "</td>");
                 row.append("<td>" + formatDate(appointment.appointment_date.$date) + "</td>");
                 row.append("<td>" + appointment.status + "</td>");
-                row.append("<td><button onclick=\"changeStatus('" + appointment._id.$oid + "', 'examined')\">Examined</button></td>");
+                row.append("<td><button class='approve-button' onclick=\"changeStatus('" + appointment._id.$oid + "', 'examined')\">Examined</button></td>");
                 resultsTbody.append(row);
             }
         }
@@ -90,5 +91,4 @@
     }
 </script>
 
-</body>
-</html>
+{% endblock %}
