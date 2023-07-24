@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Search Doctors</title>
-</head>
-<body>
-    <h1>Search Doctors</h1>
+{% extends "base.html" %}
+
+{% block title %}title{% endblock %}
+
+{% block content %}
+
+    <div class="background">
+
+
+    <h2>Search Doctors</h2>
     <label for="specialty">Specialty:</label>
     <input type="text" id="specialty" placeholder="Enter specialty">
     <br>
@@ -15,6 +18,8 @@
     <input type="text" id="city" placeholder="Enter city">
     <br>
     <button onclick="searchDoctors()">Search</button>
+
+    </div>
     <table border="1" id="results"></table>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -128,5 +133,7 @@
             }
         }
     </script>
-</body>
-</html>
+
+{% endblock %}
+
+

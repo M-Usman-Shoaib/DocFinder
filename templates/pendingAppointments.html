@@ -1,9 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Appointment Status</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}title{% endblock %}
+
+{% block content %}
+
+    <div class="background">
     <h1>Appointment Status - Pending</h1>
     <table border="1" id="results">
         <thead>
@@ -16,7 +17,7 @@
         </thead>
         <tbody></tbody>
     </table>
-
+    </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
    <script>
     $(document).ready(function () {
@@ -90,5 +91,4 @@
     }
 </script>
 
-</body>
-</html>
+{% endblock %}
