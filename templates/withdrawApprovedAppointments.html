@@ -56,7 +56,7 @@
                     row.append("<td>" + appointment.doctor_name + "</td>");
                     row.append("<td>" + formatDate(appointment.appointment_date.$date) + "</td>");
                     row.append("<td>" + appointment.status + "</td>");
-                    row.append("<td><button onclick=\"withdrawAppointment('" + appointment._id.$oid + "')\">Withdraw</button></td>");
+                    row.append("<td><button class='reject-button' onclick=\"withdrawAppointment('" + appointment._id.$oid + "')\">Withdraw</button></td>");
                     resultsTbody.append(row);
                 }
             }
