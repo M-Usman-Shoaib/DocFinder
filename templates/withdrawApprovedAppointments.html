@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Appointment Status</title>
-</head>
-<body>
-    <h1>Appointment Status - Approved</h1>
-    <table border="1" id="results">
+{% extends "base.html" %}
+
+{% block title %}title{% endblock %}
+
+{% block content %}
+
+    <div class="background">
+    <h2 class="text-center" >Appointment Status - Approved</h2>
+    <table class="mt-5" border="1" id="results">
         <thead>
             <tr>
                 <th>Doctor Name</th>
@@ -16,7 +17,7 @@
         </thead>
         <tbody></tbody>
     </table>
-
+    </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -87,5 +88,6 @@
             });
         }
     </script>
-</body>
-</html>
+
+
+{% endblock %}
