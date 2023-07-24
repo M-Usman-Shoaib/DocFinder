@@ -170,6 +170,14 @@ def deletePatient(id):
         return {"message": f"Error occurred: {str(e)}"}, 500
 
 
+@app.route('/logout')
+def logout():
+    try:
+        session.clear()
+        return render_template("homePage.html")
+    except Exception as e:
+        pass
+
 if __name__ == '__main__':
     app.run(debug=True)
 
