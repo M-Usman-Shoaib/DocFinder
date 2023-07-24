@@ -1,40 +1,60 @@
-{% extends "base.html" %}
-
-{% block title %}title{% endblock %}
-
-{% block content %}
-
-    <div class="background">
-
-
-    <h2>Search Doctors</h2>
-    <label for="specialty">Specialty:</label>
-    <input type="text" id="specialty" placeholder="Enter specialty">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Doctors</title>
+</head>
+<body>
+    <h1>Search Doctors</h1>
+    <form>
+        <label for="specialty">Specialty:</label>
+        <select id="specialty">
+            <option value="">-- Any --</option>
+            <option value="Nutritionist">Nutritionist</option>
+            <option value="Gynecologist">Gynecologist</option>
+            <option value="Gastroenterologist">Gastroenterologist</option>
+            <option value="Skin-specialist">Skin Specialist</option>
+            <option value="Eye-specialist">Eye Specialist</option>
+            <option value="Orthopedic Surgeon">Orthopedic Surgeon</option>
+            <option value="Endocrinologists">Endocrinologists</option>
+            <option value="General Surgeon">General Surgeon</option>
+            <!-- Add other specialty options here -->
+        </select>
+        <br>
+        <label for="city">City:</label>
+        <select id="city">
+            <option value="">-- Any --</option>
+            <option value="Karachi">Karachi</option>
+            <option value="Lahore">Lahore</option>
+            <option value="Islamabad">Islamabad</option>
+            <option value="Rawalpindi">Rawalpindi</option>
+            <option value="Faisalabad">Faisalabad</option>
+            <option value="Multan">Multan</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Peshawar">Peshawar</option>
+            <option value="Quetta">Quetta</option>
+            <option value="Gujranwala">Gujranwala</option>
+            <!-- Add other city options here -->
+        </select>
+        <br>
+        <button type="button" onclick="searchDoctors()">Search</button>
+    </form>
     <br>
-    <label for="ratings">Ratings:</label>
-    <input type="number" id="ratings" min="0" max="5" step="0.1" placeholder="Enter ratings">
-    <br>
-    <label for="city">City:</label>
-    <input type="text" id="city" placeholder="Enter city">
-    <br>
-    <button onclick="searchDoctors()">Search</button>
-
-    </div>
-    <table border="1" id="results"></table>
+    <div id="results"></div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        function searchDoctors() {
+        // Rest of the JavaScript code remains unchanged.
+          function searchDoctors() {
             const specialty = document.getElementById("specialty").value;
-            const ratings = parseFloat(document.getElementById("ratings").value);
             const city = document.getElementById("city").value;
 
-            const queryString = buildQueryString(specialty, ratings, city);
-
-            if (!queryString) {
-                alert("Please enter at least one search field (Specialty, Ratings, or City).");
+            // Check if both fields are empty
+            if (!specialty && !city) {
+                alert("Please enter at least one search field (Specialty or City).");
                 return;
             }
+
+            const queryString = buildQueryString(specialty, city);
 
             $.ajax({
                 type: "GET",
@@ -49,15 +69,11 @@
             });
         }
 
-        function buildQueryString(specialty, ratings, city) {
+        function buildQueryString(specialty, city) {
             const params = [];
 
             if (specialty) {
                 params.push(`specialty=${encodeURIComponent(specialty)}`);
-            }
-
-            if (!isNaN(ratings)) {
-                params.push(`ratings=${ratings}`);
             }
 
             if (city) {
@@ -67,7 +83,7 @@
             return params.length ? `?${params.join("&")}` : "";
         }
 
-        function displayResults(results) {
+          function displayResults(results) {
             const resultsDiv = document.getElementById("results");
             resultsDiv.innerHTML = ""; // Clear previous results
 
@@ -97,7 +113,7 @@
                         const row = document.createElement("tr");
                         row.innerHTML = `
                             <td>${doctor.name}</td>
-                            <td>${doctor.specialty}</td>
+                            <td>${doctor.speciality}</td>
                             <td>${doctor.ratings}</td>
                             <td>${doctor.experience}</td>
                             <td>${doctor.hospital_name}</td>
@@ -114,7 +130,8 @@
             }
         }
 
-        function appointDoctor(doctorId) {
+
+         function appointDoctor(doctorId) {
             const appointmentDate = prompt("Enter appointment date (YYYY-MM-DD):");
 
             if (appointmentDate) {
@@ -132,8 +149,141 @@
                 });
             }
         }
+
     </script>
+</body>
+</html>
 
-{% endblock %}
 
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <title>Search Doctors</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Search Doctors</h1>-->
+<!--    <label for="specialty">Specialty:</label>-->
+<!--    <input type="text" id="specialty" placeholder="Enter specialty">-->
+<!--    <br>-->
+<!--    <label for="ratings">Ratings:</label>-->
+<!--    <input type="number" id="ratings" min="0" max="5" step="0.1" placeholder="Enter ratings">-->
+<!--    <br>-->
+<!--    <label for="city">City:</label>-->
+<!--    <input type="text" id="city" placeholder="Enter city">-->
+<!--    <br>-->
+<!--    <button onclick="searchDoctors()">Search</button>-->
+<!--    <table border="1" id="results"></table>-->
 
+<!--    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+<!--    <script>-->
+<!--        function searchDoctors() {-->
+<!--            const specialty = document.getElementById("specialty").value;-->
+<!--            const ratings = parseFloat(document.getElementById("ratings").value);-->
+<!--            const city = document.getElementById("city").value;-->
+
+<!--            const queryString = buildQueryString(specialty, ratings, city);-->
+
+<!--            if (!queryString) {-->
+<!--                alert("Please enter at least one search field (Specialty, Ratings, or City).");-->
+<!--                return;-->
+<!--            }-->
+
+<!--            $.ajax({-->
+<!--                type: "GET",-->
+<!--                url: "/doctors/search" + queryString,-->
+<!--                contentType: "application/json",-->
+<!--                success: function (response) {-->
+<!--                    displayResults(response);-->
+<!--                },-->
+<!--                error: function (xhr, status, error) {-->
+<!--                    alert("Error: " + xhr.responseText);-->
+<!--                }-->
+<!--            });-->
+<!--        }-->
+
+<!--        function buildQueryString(specialty, ratings, city) {-->
+<!--            const params = [];-->
+
+<!--            if (specialty) {-->
+<!--                params.push(`specialty=${encodeURIComponent(specialty)}`);-->
+<!--            }-->
+
+<!--            if (!isNaN(ratings)) {-->
+<!--                params.push(`ratings=${ratings}`);-->
+<!--            }-->
+
+<!--            if (city) {-->
+<!--                params.push(`city=${encodeURIComponent(city)}`);-->
+<!--            }-->
+
+<!--            return params.length ? `?${params.join("&")}` : "";-->
+<!--        }-->
+
+<!--        function displayResults(results) {-->
+<!--            const resultsDiv = document.getElementById("results");-->
+<!--            resultsDiv.innerHTML = ""; // Clear previous results-->
+
+<!--            if (results.message) {-->
+<!--                resultsDiv.textContent = results.message;-->
+<!--            } else {-->
+<!--                const doctors = JSON.parse(results);-->
+<!--                if (doctors.length === 0) {-->
+<!--                    resultsDiv.textContent = "No doctors found.";-->
+<!--                } else {-->
+<!--                    const table = document.createElement("table");-->
+<!--                    table.innerHTML = `-->
+<!--                        <tr>-->
+<!--                            <th>Name</th>-->
+<!--                            <th>Specialty</th>-->
+<!--                            <th>Ratings</th>-->
+<!--                            <th>Experience</th>-->
+<!--                            <th>Hospital Name</th>-->
+<!--                            <th>City</th>-->
+<!--                            <th>Email</th>-->
+<!--                            <th>Phone No</th>-->
+<!--                            <th>Appoint</th>-->
+<!--                        </tr>-->
+<!--                    `;-->
+
+<!--                    for (const doctor of doctors) {-->
+<!--                        const row = document.createElement("tr");-->
+<!--                        row.innerHTML = `-->
+<!--                            <td>${doctor.name}</td>-->
+<!--                            <td>${doctor.specialty}</td>-->
+<!--                            <td>${doctor.ratings}</td>-->
+<!--                            <td>${doctor.experience}</td>-->
+<!--                            <td>${doctor.hospital_name}</td>-->
+<!--                            <td>${doctor.city}</td>-->
+<!--                            <td>${doctor.email}</td>-->
+<!--                            <td>${doctor.phone_no}</td>-->
+<!--                            <td><button onclick="appointDoctor('${doctor._id.$oid}')">Appoint</button></td>-->
+<!--                        `;-->
+<!--                        table.appendChild(row);-->
+<!--                    }-->
+
+<!--                    resultsDiv.appendChild(table);-->
+<!--                }-->
+<!--            }-->
+<!--        }-->
+
+<!--        function appointDoctor(doctorId) {-->
+<!--            const appointmentDate = prompt("Enter appointment date (YYYY-MM-DD):");-->
+
+<!--            if (appointmentDate) {-->
+<!--                $.ajax({-->
+<!--                    type: "POST",-->
+<!--                    url: `/appointmentAPI/${doctorId}`,-->
+<!--                    data: JSON.stringify({ "appointment_date": appointmentDate }),-->
+<!--                    contentType: "application/json",-->
+<!--                    success: function (response) {-->
+<!--                        alert(response.message);-->
+<!--                    },-->
+<!--                    error: function (xhr, status, error) {-->
+<!--                        alert("Error: " + xhr.responseText);-->
+<!--                    }-->
+<!--                });-->
+<!--            }-->
+<!--        }-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
