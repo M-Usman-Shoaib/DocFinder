@@ -167,7 +167,7 @@
           const data = await response.json();
           alert(data.message); // Display API response message in a pop-up
         } else {
-          alert("Error: Unable to submit the form.");
+          alert("Error: Email or Phone number is already used.");
         }
       } catch (error) {
         alert("Error: " + error.message);
