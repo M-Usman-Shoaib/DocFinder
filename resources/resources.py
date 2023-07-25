@@ -5,13 +5,19 @@ from bson import ObjectId
 
 class patientAPI(Resource):
     def get(self, data):
+
         try:
             patient = patients.objects(status=data).to_json()
-            return Response(patient, mimetype="application/json", status=200)
+            return Response(patient,
+                            mimetype="application/json",
+                            status=200)
         except Exception as e:
-            return Response("Error occurred while fetching patients", status=500, mimetype="application/json")
+            return Response("Error occurred while fetching patients",
+                            status=500,
+                            mimetype="application/json")
 
     def post(self):
+
         try:
             # Get data from the form
             name = request.form["name"]
@@ -21,7 +27,7 @@ class patientAPI(Resource):
             phone_no = request.form['phone_no']
             password = request.form['password']
 
-            # Check if the email or phone number already exist in the database
+            # Check if the entered email or phone number already exist in the database
             if patients.objects(email=email).first():
                 return {'error': 'This Email is already registered'}, 400
             elif doctors.objects(email=email).first():
@@ -32,7 +38,8 @@ class patientAPI(Resource):
             elif doctors.objects(phone_no=phone_no).first():
                 return {'error': 'This Phone no. is already registered'}, 400
 
-            p = patients(name=name, age=age, city=city, email=email, phone_no=phone_no, password=password, status="pending").save()
+            p = patients(name=name, age=age, city=city, email=email, phone_no=phone_no,
+                    password=password, status="pending").save()
 
             # Return a success message
             return {'message': 'Registration pending'}, 200
@@ -41,6 +48,7 @@ class patientAPI(Resource):
             return {'message': str(e)}, 400
 
     def put(self, id, status):
+
         try:
             patients.objects(id=id).update(status=status)
             return {"message": f"Patient registration {status}"}, 200
@@ -48,6 +56,7 @@ class patientAPI(Resource):
             return {"message": "Invalid patient ID"}, 400
 
     def delete(self):
+
         try:
             p_id = session.get("patient_id")
             # Check if the patient record exists
@@ -60,13 +69,19 @@ class patientAPI(Resource):
 
 class doctorAPI(Resource):
     def get(self, data):
+
         try:
             doctor = doctors.objects(status=data).to_json()
-            return Response(doctor, mimetype="application/json", status=200)
+            return Response(doctor,
+                            mimetype="application/json",
+                            status=200)
         except Exception as e:
-            return Response("Error occurred while fetching doctors", status=500, mimetype="application/json")
+            return Response("Error occurred while fetching doctors",
+                            status=500,
+                            mimetype="application/json")
 
     def post(self):
+
         try:
             # Get the form data
             name = request.form['name']
@@ -91,13 +106,16 @@ class doctorAPI(Resource):
             elif patients.objects(phone_no=phone_no).first():
                 return {'error': 'This Phone no. is already registered'}, 400
 
-            d = doctors(name=name, gender=gender, speciality=speciality, experience=experience, hospital_name=hospital_name, city=city, email=email, phone_no=phone_no, password=password, status="pending").save()
+            d = doctors(name=name, gender=gender, speciality=speciality,
+                        experience=experience, hospital_name=hospital_name, city=city,
+                        email=email, phone_no=phone_no, password=password, status="pending").save()
             # Return a success message
             return {'message': 'Registration pending'}, 200
         except Exception as e:
             return {'message': str(e)}, 400
 
     def put(self, id, status):
+
         try:
             doctors.objects(id=id).update(status=status)
             return {"message": f"Doctor registration {status}"}, 200
@@ -105,6 +123,7 @@ class doctorAPI(Resource):
             return {"message": "Invalid doctor ID"}, 400
 
     def delete(self):
+
         try:
             d_id = session.get("doctor_id")
             # Check if the patient record exists
@@ -116,6 +135,7 @@ class doctorAPI(Resource):
 
 class searchDoctorsAPI(Resource):
     def get(self):
+
         try:
             specialty = request.args.get("specialty")
             ratings = float(request.args.get("ratings")) if request.args.get("ratings") else None
@@ -129,6 +149,7 @@ class searchDoctorsAPI(Resource):
 
 class appointmentAPI(Resource):
     def get(self, data):
+
         try:
             # Retrieve patient_id from the session
             pid = session.get("patient_id")
@@ -151,6 +172,7 @@ class appointmentAPI(Resource):
             return {"message": f"Error occurred while fetching appointments: {str(e)}"}, 500
 
     def post(self, data):
+
         try:
             data2 = request.get_json()
             patient_id = session.get('patient_id')
@@ -166,6 +188,7 @@ class appointmentAPI(Resource):
             return {"message": f"Error occurred due to {str(e)}"}, 500
 
     def delete(self, data):
+
         try:
             # Check if the appointment with the given ID exists in the database
             appointments.objects(id=data).delete()
@@ -177,6 +200,7 @@ class appointmentAPI(Resource):
 
 class doctorsAPI(Resource):
     def post(self):
+
         try:
             data = request.get_json()
             email = data.get('email')
@@ -205,6 +229,7 @@ class doctorsAPI(Resource):
             return {'message': f'Error occurred due to {str(e)}'}, 500
 
     def delete(self, d_id):
+
         try:
             # Check if the patient record exists
             doctors.objects(id=d_id).delete()
@@ -215,6 +240,7 @@ class doctorsAPI(Resource):
 
 class appointmentAPI2(Resource):
     def get(self, data):
+
         try:
             # Retrieve patient_id from the session
             d_id = session.get("doctor_id")
@@ -237,6 +263,7 @@ class appointmentAPI2(Resource):
             return {"message": f"Error occurred while fetching appointments: {str(e)}"}, 500
 
     def put(self, data):
+
         try:
             ID = data
             doctorID = session.get("doctor_id")
@@ -250,6 +277,7 @@ class appointmentAPI2(Resource):
 
 
 def search_doctors(speciality, ratings, city):
+
     try:
         query = {}
         if speciality:
