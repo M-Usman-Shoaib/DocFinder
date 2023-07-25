@@ -1,7 +1,7 @@
 from flask import request, jsonify, Response, session
 from flask_restful import Resource
 from database.models import patients, doctors, appointments
-from bson import ObjectId
+
 
 class patientAPI(Resource):
     def get(self, data):
